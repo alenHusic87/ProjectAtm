@@ -25,3 +25,17 @@ C:\Users\patri\OneDrive\_CSF_\_Rebon numérique_\_Formation_\_Cours_\2-Applicati
 C:\Users\patri\OneDrive\_CSF_\_Rebon numérique_\_Formation_\_Cours_\2-ApplicationNative\G-Projet\Projet I\Guichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.dll
 C:\Users\patri\OneDrive\_CSF_\_Rebon numérique_\_Formation_\_Cours_\2-ApplicationNative\G-Projet\Projet I\Guichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.pdb
 C:\Users\patri\OneDrive\_CSF_\_Rebon numérique_\_Formation_\_Cours_\2-ApplicationNative\G-Projet\Projet I\Guichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.genruntimeconfig.cache
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\bin\Debug\netcoreapp3.1\Guichet.exe
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\bin\Debug\netcoreapp3.1\Guichet.deps.json
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.json
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.dev.json
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\bin\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\bin\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.AssemblyReference.cache
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfoInputs.cache
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfo.cs
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.CoreCompileInputs.cache
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\alenh\OneDrive\Bureau\ProjetGuichet-main\Guichet\obj\Debug\netcoreapp3.1\Guichet.genruntimeconfig.cache

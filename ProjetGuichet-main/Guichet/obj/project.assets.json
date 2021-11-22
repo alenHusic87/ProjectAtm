@@ -8,19 +8,24 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\patri\\.nuget\\packages\\": {}
+    "C:\\Users\\alenh\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\patri\\OneDrive\\_CSF_\\_Rebon numérique_\\_Formation_\\_Cours_\\2-ApplicationNative\\G-Projet\\Projet I\\Guichet\\Guichet\\Guichet.csproj",
+      "projectUniqueName": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj",
       "projectName": "Guichet",
-      "projectPath": "C:\\Users\\patri\\OneDrive\\_CSF_\\_Rebon numérique_\\_Formation_\\_Cours_\\2-ApplicationNative\\G-Projet\\Projet I\\Guichet\\Guichet\\Guichet.csproj",
-      "packagesPath": "C:\\Users\\patri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\patri\\OneDrive\\_CSF_\\_Rebon numérique_\\_Formation_\\_Cours_\\2-ApplicationNative\\G-Projet\\Projet I\\Guichet\\Guichet\\obj\\",
+      "projectPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj",
+      "packagesPath": "C:\\Users\\alenh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\patri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alenh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
