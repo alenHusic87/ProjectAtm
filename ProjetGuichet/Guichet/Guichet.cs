@@ -61,7 +61,7 @@ de la liste peut accéder à son compte*/
             comptesCheques.Add(clinet);
             comptesEpargne.Add(new CompteEpargne("12345678", "1234",109.50 ,false));
 
-            
+            Login();
 
             foreach (CompteCheque a in comptesCheques)
             {
@@ -128,13 +128,51 @@ de la liste peut accéder à son compte*/
                                 // Lire le userName du admin
                                 Console.Write("Username: ");
                                 admin.GetAdminuser = Console.ReadLine();
+                                
                             }
 
                                 break;
                         // Case 2 pour Client Login
                         case "2":
+                            CompteCheque clinet = new CompteCheque("123456", "1234", 100.50, false);
+                            //bool isSignedin = false;
                             Console.WriteLine("-----Client Login-----\n" +
                                 "Enter ton  numerodecompte & ton mot de pass");
+                        
+                                // Lire le userName du client 
+                                Console.Write("Username: ");
+                                clinet.GetNumeroCompte = Console.ReadLine();
+
+                            if (clinet.GetNumeroCompte.Equals(clinet.GetNumeroCompte) )
+                            {
+                                    Console.WriteLine("Client inscrit il est egale a celui rentre " );
+                                    
+                                //Affiche le le reste 
+                                int wrong = 0;
+                                Console.Write("mote de pass: ");
+                                clinet.GetMotPass = Console.ReadLine();
+                                if (clinet.GetMotPass.Equals(clinet.GetMotPass)) 
+                                {
+                                    Console.WriteLine("le Mote de pas du client  inscrit il est egale a celui rentre ");
+                                }
+                                else 
+                                {
+                                    wrong++;
+                                    if (wrong < 3)
+                                    {
+                                        Console.WriteLine("mauvais code essye encore .");
+                                        Console.Write("mote de pass: ");
+                                        clinet.GetMotPass = Console.ReadLine();
+                                        
+                                    }
+                                    else if (wrong == 3)
+                                    {
+                                    
+                                        Console.WriteLine("le mote de pass est entre  3 fois . compte  il est ferrme!");
+                                        break;
+                                    }
+                                }
+                            }
                             break;
 
 
