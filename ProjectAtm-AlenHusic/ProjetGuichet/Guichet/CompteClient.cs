@@ -9,8 +9,8 @@ namespace Guichet
     {
         protected string numerocompte;
         protected double balance;
-        
-        protected string motpasse;   // minimum 4 caractere peut importe le type de caractere
+        protected string nom;
+        protected string motpasse;   // minimum 4 caractere peut importe le type 
         protected bool isLocked;
         protected string typecompte;
 
@@ -19,6 +19,7 @@ namespace Guichet
         public string GetMotPasse { get => motpasse; set => motpasse = value; }
         public double GetBalance { get => balance; set => balance = value; }
         public bool IsLocked { get => isLocked; set => isLocked = value; }
+        public string Nom { get => nom; set => nom = value; }
 
         public CompteClient()
         {
@@ -28,7 +29,7 @@ namespace Guichet
 
 
         //Afficher le message en vert si correct 
-        //Afficher le message en rouge si pas incorrect
+        //Afficher le message en rouge si incorrect
         public static void PrintMessage(string msg, bool success)
         {
             if (success)
@@ -38,7 +39,7 @@ namespace Guichet
 
             Console.WriteLine(msg);
             Console.ResetColor();
-            Console.WriteLine("appuyer sur une touche pour continuer");
+            Console.WriteLine("Appuyer sur une touche pour continuer");
             Console.ReadKey();
         }
 
@@ -47,7 +48,7 @@ namespace Guichet
         public static void LockAccount()
         {
             Console.Clear();
-            PrintMessage("Le compte est barré.", true);
+            PrintMessage("Le compte est vérouiller.", true);
             Console.WriteLine("Appeller l'admin pour le déverouiller.");
             Console.ReadKey();
             System.Environment.Exit(1);
@@ -58,7 +59,7 @@ namespace Guichet
         // La méthode abstraite Depot  
         public abstract void Depot(double montant);
         // La méthode abstraite AfficheSolde   
-        public abstract string AfficheSolde();
+        public abstract string AfficherSolde();
 
         // La méthode abstraite Virement 
         public abstract void Virement(double montant);

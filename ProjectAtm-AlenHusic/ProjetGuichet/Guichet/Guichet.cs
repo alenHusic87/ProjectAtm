@@ -51,31 +51,29 @@ de la liste peut accéder à son compte*/
 
 
         private List<CompteCheque> comptesCheques = new List<CompteCheque>();
-        private List<CompteEpargne> comptesEpargne = new List<CompteEpargne>();
-
-
+        private List<CompteEpargne> compteEpargne = new List<CompteEpargne>();
+        private IEnumerable<CompteCheque> compteCheques;
 
         public Guichet()
         {
-            CompteCheque clinet = new CompteCheque("123456", "1234", 100.50, false);
-
-            comptesCheques.Add(new CompteCheque("12345", "1234" ,100.50 ,false));
-            comptesCheques.Add(clinet);
-            comptesEpargne.Add(new CompteEpargne("12345678", "1234",109.50 ,false));
+            CompteCheque client = new CompteCheque("Marc", "123456", "1234", 100.50, false);
+            comptesCheques.Add(new CompteCheque("Marc", "12345", "1234", 100.50, false));
+            comptesCheques.Add(client);
+            compteEpargne.Add(new CompteEpargne("Marc", "12345678", "1234", 109.50, false));
 
             Login();
 
-            foreach (CompteCheque a in comptesCheques)
+            foreach (CompteCheque a in compteCheques)
             {
-               Console.WriteLine($"Numero  de compte Cheques  : {a.GetNumeroCompte}  {a.GetMotPasse}  {a.GetBalance} ");
+               Console.WriteLine($"Numero de compte Cheques  : {a.GetNumeroCompte}  {a.GetMotPasse}  {a.GetBalance} ");
             }
-            foreach (CompteEpargne a in comptesEpargne)
+            foreach (CompteEpargne a in compteEpargne)
             {
 
                 Console.WriteLine($"Numero de compte Epargne  : {a.GetNumeroCompte} {a.GetBalance} ");
             }
 
-            CompteCheque compteCourant = new CompteCheque("Djavo", "1234", 100.50, false);
+            CompteCheque compteCourant = new CompteCheque("Marc", "Djavo", "1234", 100.50, false);
             Console.Write("Entrez le montant du retrait : ");
             double montantretrait = Convert.ToDouble(Console.ReadLine());
             
@@ -83,42 +81,42 @@ de la liste peut accéder à son compte*/
             compteCourant.Retrait(montantretrait);
 
             
-            Console.WriteLine(compteCourant.AfficheSolde());
+            Console.WriteLine(compteCourant.AfficherSolde());
             Console.WriteLine(compteCourant.GetMotPasse);
 
-            Console.Write("Entrez le montant du depot : ");
+            Console.Write("Entrez le montant du dépot : ");
             double montantDepot = Convert.ToDouble(Console.ReadLine());
             compteCourant.Virement(montantDepot);
-
+ 
 
             Console.Write("Entrez le montant à payer : ");
             double montanttoPay = Convert.ToDouble(Console.ReadLine());
             compteCourant.PayBill(montanttoPay);
 
-            Console.WriteLine(compteCourant.AfficheSolde());
+            Console.WriteLine(compteCourant.AfficherSolde());
 
         }
 
-        //Initialiser le 5 user 
+        //Initialiser les 5 utilisateur
         //et devrais appeller la methode dans Constructeur du guichet
         public void Initialization()
         {
             mDepart = 0;
-            comptesCheques.Add(new CompteCheque("comptesCheques", "1234", 100.50, false));
-            comptesEpargne.Add(new CompteEpargne("CompteEpargne", "1234", 100.50, false));
+            comptesCheques.Add(new CompteCheque("Marc","CompteCheques", "1234", 100.50, false));
+            compteEpargne.Add(new CompteEpargne("Marc","CompteEpargne", "1234", 100.50, false));
         }
 
         public void Login()
         {
-            Console.WriteLine("-----Bienvenue-----\n\n" + "Login:\n" +
-                "1----Admin\n" +
-                "2----Client\n\n" +
-                "Entrer  1 ou 2:");
+            Console.WriteLine( "Veuillez choisir l'une des actions suivantes:\n" +
+                "1- Se connecter à votre compte\n" +
+                "2- Se connecter comme administrateur\n" +
+                "3- Quitter\n");
             try
             {
                 string user = Console.ReadLine();
                 // Checking if input is correct
-                if (user == "1" || user == "2")
+                if (user == "1" || user == "2" || user == "3")
                 {
 
                     switch (user)
@@ -126,7 +124,7 @@ de la liste peut accéder à son compte*/
                         // Case 1 pour Admin Login
                         case "1":
                             Console.WriteLine("-----Accès client-----\n" +
-                                " Enter numero de compte & mot de passe");
+                                " Entrer numéro de compte & mot de passe");
 
                             //Declare  a Admin object
                             Admin admin = new Admin();
@@ -142,36 +140,36 @@ de la liste peut accéder à son compte*/
                                 break;
                         // Case 2 pour Client Login
                         case "2":
-                            CompteCheque clinet = new CompteCheque("123456", "1234", 100.50, false);
-                            string numerocompte = clinet.GetNumeroCompte;
-                            string motpass = clinet.GetMotPasse;
+                            CompteCheque client = new CompteCheque("Marc","123456", "1234", 100.50, false);
+                            string numerocompte = client.GetNumeroCompte;
+                            string motpasse = client.GetMotPasse;
                             //bool isSignedin = false;
                             Console.WriteLine("-----Accès client-----\n" +
                                 "Entrer numero de compte & mot de passe");
                         
                                 // Lire le userName du client 
                                 Console.Write("Utilisateur: ");
-                                clinet.GetNumeroCompte = Console.ReadLine();
+                                client.GetNumeroCompte = Console.ReadLine();
 
-                            if (clinet.GetNumeroCompte.Equals(numerocompte) )
+                            if (client.GetNumeroCompte.Equals(numerocompte) )
                             {
-                                    Console.WriteLine("le numero de compte est valide ");
+                                    Console.WriteLine("Le numéro de compte est valide ");
                                     
-                                //Afficher le le reste 
+                                //Afficher le reste 
                                 int mauvais = 0;
                                 gotoPin:
-                                Console.Write("mot de passe: ");
-                                clinet.GetMotPasse = Console.ReadLine();
-                                if (clinet.GetMotPasse.Equals(motpass)) 
+                                Console.Write("Mot de passe: ");
+                                client.GetMotPasse = Console.ReadLine();
+                                if (client.GetMotPasse.Equals(motpasse)) 
                                 {
-                                    Console.WriteLine("le mot de passe du client est valide ");
+                                    Console.WriteLine("Le mot de passe du client est valide ");
                                 }
                                 else 
                                 {
                                     mauvais++;
                                     if (mauvais < 3)
                                     {
-                                        Console.WriteLine("mauvais code essayer encore.");
+                                        Console.WriteLine("Mauvais mot de passe, veuillez réessayer.");
                                         goto gotoPin;
                                       
                                         
@@ -179,30 +177,33 @@ de la liste peut accéder à son compte*/
                                     else if (mauvais == 3)
                                     {
                                     
-                                        Console.WriteLine("le mot de passe à été entré 3 fois . Le compte est gelé!");
+                                        Console.WriteLine("Le mot de passe à été saisi 3 fois. Le compte est en panne!");
                                         break;
                                     }
                                 }
                             }
                             else 
                             {
-                                Console.WriteLine("le user est incorect");
+                                Console.WriteLine("L'utlisateur est incorrect");
                             }
                             break;
-
+                            
+                        case "3":
+                            Environment.Exit(0);
+                            break;
 
                     }
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("Svp essayer encore");
+                Console.WriteLine("S.v.p essayer encore");
             }
         }
 
 
 
-        // methode pour valider un username et un nip
+        // methode pour valider l'utlisateur et mot de passe.
         /* public bool ValiderUtilisateur(String username, String nip)
          {
              bool valide = false;
@@ -238,19 +239,19 @@ de la liste peut accéder à son compte*/
 
 
 
-        // - void Retire()
+        // - void Retirer()
         // {
-        /// peux  retire  maximum 10 000$
+        /// peux  retirer un maximum de 10 000$
         ///  if( mDepart == 0  || mDepart  < leretrait ) 
         ///  { 
-        ///    /// Affiche la panne  que le solde est a  0$
-        ///    ///qu'il ne peut pas se connecte a sont  compte 
-        ///    ///appeler l'admin pour remplir le Atm
+        ///    /// Afficher la panne et que le solde est a  0$
+        ///    ///il ne peut pas se connecter a sont compte 
+        ///    ///appeller l'admin pour remplir le Atm
         ///  }
         ///  else{
         ///   mDepart--;
         ///   Console.Writeline(mDepart);
-        ///   //Peut toujours retire ;
+        ///   //Peut toujours retirer ;
         ///     retourner solde;
         ///  } 
 
@@ -260,7 +261,7 @@ de la liste peut accéder à son compte*/
         /// --  void Depot()
         /// {
         ///     ///quand les client vont deposer
-        ///     si client depose 100$ 
+        ///     si le client depose 100$ 
         ///     mDeposedansGuichet +=100;
         ///     mDeposedansGuichet++;
         ///     
@@ -269,8 +270,8 @@ de la liste peut accéder à son compte*/
         ///     
         ///    
         ///     
-        ///    // Quand les clients  depose  dans leurs compte Cheque ou Epargne
-        ///    //sa ne se addtione pas  et peut affiche le motant qui est dans le Banque 
+        ///    // Quand les clients depose  dans leurs compte Cheque ou Epargne
+        ///    //ça ne s'additione pas et ont doit afficher le montant qui est dans le Banque 
         ///    
         /// 
         ///    if ( Panne )
@@ -289,8 +290,8 @@ de la liste peut accéder à son compte*/
         /// }
         /// 
 
-        // montat depart 10 000$;
-        // voire la liste de compte
+        // montant de depart 10 000$;
+        // voir la liste des comptes
 
     }
 }

@@ -6,12 +6,13 @@ namespace Guichet
 {    
     class CompteEpargne : CompteClient
     {
-        public CompteEpargne(string numero, string pin, double balance, bool islocked)
+        public CompteEpargne(string nom, string numero, string pin, double balance, bool islocked)
         {
             this.numerocompte = numero;
             this.motpasse = pin;
             this.balance = balance;
             this.isLocked = islocked;
+            this.nom = nom;
         }
         public override void Retrait(double montant)
         {
@@ -35,7 +36,7 @@ namespace Guichet
             //TO DOOO
             GetBalance = GetBalance - montant;
         }
-        public override string AfficheSolde()
+        public override string AfficherSolde()
         {
             return "Le solde du compte " + numerocompte + " est de " + balance + "$";
         }
