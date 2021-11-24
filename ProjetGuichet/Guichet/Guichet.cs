@@ -48,6 +48,8 @@ de la liste peut accéder à son compte*/
         public string NbdeCompte { get => nbdeCompte; set => nbdeCompte = value; }
 
         private List<CompteClient> listeClients = new List<CompteClient>();
+
+
         private List<CompteCheque> comptesCheques = new List<CompteCheque>();
         private List<CompteEpargne> comptesEpargne = new List<CompteEpargne>();
 
@@ -98,6 +100,7 @@ de la liste peut accéder à son compte*/
         {
             mDepart = 0;
             comptesCheques.Add(new CompteCheque("comptesCheques", "1234", 100.50, false));
+            comptesEpargne.Add(new CompteEpargne("CompteEpargne", "1234", 100.50, false));
         }
 
         public void Login()
@@ -135,6 +138,8 @@ de la liste peut accéder à son compte*/
                         // Case 2 pour Client Login
                         case "2":
                             CompteCheque clinet = new CompteCheque("123456", "1234", 100.50, false);
+                            string numerocompte = clinet.GetNumeroCompte;
+                            string motpass = clinet.GetMotPass;
                             //bool isSignedin = false;
                             Console.WriteLine("-----Client Login-----\n" +
                                 "Enter ton  numerodecompte & ton mot de pass");
@@ -143,7 +148,7 @@ de la liste peut accéder à son compte*/
                                 Console.Write("Username: ");
                                 clinet.GetNumeroCompte = Console.ReadLine();
 
-                            if (clinet.GetNumeroCompte.Equals(clinet.GetNumeroCompte) )
+                            if (clinet.GetNumeroCompte.Equals(numerocompte) )
                             {
                                     Console.WriteLine("Client inscrit il est egale a celui rentre " );
                                     
@@ -151,7 +156,7 @@ de la liste peut accéder à son compte*/
                                 int wrong = 0;
                                 Console.Write("mote de pass: ");
                                 clinet.GetMotPass = Console.ReadLine();
-                                if (clinet.GetMotPass.Equals(clinet.GetMotPass)) 
+                                if (clinet.GetMotPass.Equals(motpass)) 
                                 {
                                     Console.WriteLine("le Mote de pas du client  inscrit il est egale a celui rentre ");
                                 }
@@ -172,6 +177,10 @@ de la liste peut accéder à son compte*/
                                         break;
                                     }
                                 }
+                            }
+                            else 
+                            {
+                                Console.WriteLine("le user est incorect");
                             }
                             break;
 
