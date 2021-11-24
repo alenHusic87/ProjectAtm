@@ -38,19 +38,140 @@ de la liste peut accéder à son compte*/
         private int mDeposedansGuichet = 0;
 
         private string nbdeCompte;
+        private static CompteCheque inputAccount;
+        private static CompteCheque selectedAccount;
+
+        private  int tries;
+        private const int maxTries = 3;
+
 
         public string NbdeCompte { get => nbdeCompte; set => nbdeCompte = value; }
 
+        private List<CompteClient> listeClients = new List<CompteClient>();
+        private List<CompteCheque> comptesCheques = new List<CompteCheque>();
+        private List<CompteEpargne> comptesEpargne = new List<CompteEpargne>();
 
+
+
+        public Guichet()
+        {
+            CompteCheque clinet = new CompteCheque("123456", "1234", 100.50, false);
+
+            comptesCheques.Add(new CompteCheque("12345", "1234" ,100.50 ,false));
+            comptesCheques.Add(clinet);
+            comptesEpargne.Add(new CompteEpargne("12345678", "1234",109.50 ,false));
+
+            
+
+            foreach (CompteCheque a in comptesCheques)
+            {
+               Console.WriteLine($"Numero  de comptesCheques  : {a.GetNumeroCompte}  {a.GetMotPass}  {a.GetBalance} ");
+            }
+            foreach (CompteEpargne a in comptesEpargne)
+            {
+
+                Console.WriteLine($"Numero  de comptesEpargne  : {a.GetNumeroCompte} {a.GetBalance} ");
+            }
+
+            CompteCheque compteCourant = new CompteCheque("Djavo", "1234", 100.50, false); 
+            compteCourant.Retrait(100);
+            compteCourant.Depot(10);
+            Console.WriteLine(compteCourant.AfficheSold());
+            Console.WriteLine(compteCourant.GetMotPass);
+
+            Console.Write("Entrez le montant du transfert : ");
+            double montantTransfert = Convert.ToDouble(Console.ReadLine());
+            compteCourant.Virment(montantTransfert);
+
+
+            Console.Write("Entrez le montant pour payer : ");
+            double montanttoPay = Convert.ToDouble(Console.ReadLine());
+            compteCourant.PayBill(montanttoPay);
+
+            Console.WriteLine(compteCourant.AfficheSold());
+
+        }
+
+        //Initialise le 5 user 
+        //et devrais apple la methode dans Constructeur du guichet
+        public void Initialization()
+        {
+            mDepart = 0;
+            comptesCheques.Add(new CompteCheque("comptesCheques", "1234", 100.50, false));
+        }
+
+        public void Login()
+        {
+            Console.WriteLine("-----BieneVenu-----\n\n" + "Login:\n" +
+                "1----Admin\n" +
+                "2----Client\n\n" +
+                "Entre  1 or 2:");
+            try
+            {
+                string user = Console.ReadLine();
+                // Checking if input is correct
+                if (user == "1" || user == "2")
+                {
+
+                    switch (user)
+                    {
+                        // Case 1 pour Admin Login
+                        case "1":
+                            Console.WriteLine("-----Admin Login-----\n" +
+                                " Enter ton  numerodecompte & ton mot de pass");
+
+                            //Declare  a Admin object
+                            Admin admin = new Admin();
+                            bool isSignedin = false;
+                            while (!isSignedin)
+                            {
+                                // Lire le userName du admin
+                                Console.Write("Username: ");
+                                admin.GetAdminuser = Console.ReadLine();
+                            }
+
+                                break;
+                        // Case 2 pour Client Login
+                        case "2":
+                            Console.WriteLine("-----Client Login-----\n" +
+                                "Enter ton  numerodecompte & ton mot de pass");
+                            break;
+
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Please essaye  encore");
+            }
+        }
+
+
+
+        // methode pour valider un username et un nip
+        /* public bool ValiderUtilisateur(String username, String nip)
+         {
+             bool valide = false;
+             for (ClasseClient client : listeClients)
+             {
+                 valide = client.getUsername().equalsIgnoreCase(username) && client.getNumeroNIP().equalsIgnoreCase(nip);
+                 if (valide)
+                     break;
+             }
+             return valide;
+         }
+        */
 
         ///Construtructeur 
         ///public Guichet()
         ///{
-        ///     CompteClient  client1 = new  CompteClient();
-        ///     CompteClient  client2 = new  CompteClient();
-        ///     CompteClient  client3 = new  CompteClient();
-        ///     CompteClient  client4 = new  CompteClient();
-        ///     CompteClient  client5 = new  CompteClient();
+        ///     /Faire un ArrayList
+        ///     CompteCheque  client1 = new  CompteCheque();
+        ///     CompteCheque  client2 = new  CompteCheque();
+        ///     CompteCheque  client3 = new  CompteCheque();
+        ///     CompteCheque  client4 = new  CompteCheque();
+        ///     CompteCheque  client5 = new  CompteCheque();
         ///     
         ///     CompteAdmin admin = new CompteAdmin();
         ///     
@@ -60,6 +181,8 @@ de la liste peut accéder à son compte*/
 
 
         // FUnction pour guichet 
+
+
 
 
         // - void Retire()

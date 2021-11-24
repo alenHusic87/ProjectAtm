@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj": {}
+    "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\Guichet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj": {
+    "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\Guichet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj",
+        "projectUniqueName": "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\Guichet.csproj",
         "projectName": "Guichet",
-        "projectPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj",
+        "projectPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\Guichet.csproj",
         "packagesPath": "C:\\Users\\alenh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\obj\\",
+        "outputPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,6 +43,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "System.Collections.NonGeneric": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

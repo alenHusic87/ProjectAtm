@@ -7,9 +7,7 @@ namespace Guichet
         static void Main(string[] args)
         {
             Guichet guichet = new Guichet();
-
-            CompteCheque a = new CompteCheque(guichet.NbdeCompte);
-            a.ChnageMotdePass();
+            Console.WriteLine(guichet);
         }
     }
 }

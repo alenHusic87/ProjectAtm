@@ -1,8 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "ARozpwKscqUfi1Fp0doXpu0832yJ4ibsotiNd7y+XldXH0cYI/bqUfMopJHdVmqMfBtuZlU3gO6TeXz/N4vvsA==",
+  "dgSpecHash": "E1wE/KfdIWPpyr8VvkNKV6bp779nhc9pPWOoTEeaLNUQEho0b2bEX4IRBPqGaWlqQMch+65EWCXw3orTLbEe+A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alenh\\OneDrive\\Bureau\\ProjetGuichet-main\\Guichet\\Guichet.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\Guichet.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\alenh\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.globalization\\4.3.0\\system.globalization.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
+    "C:\\Users\\alenh\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+  ],
   "logs": []
 }
