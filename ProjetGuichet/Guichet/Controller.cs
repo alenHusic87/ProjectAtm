@@ -8,6 +8,13 @@ namespace Guichet
         {
             Guichet guichet = new Guichet();
             Console.WriteLine(guichet);
+
+
+            User a = new User("a");
+
+            a.teste();
+
+
         }
     }
 }

@@ -2,22 +2,63 @@
 using System.Collections.Generic;
 using System.Text;
 
+
+
 namespace Guichet
 {
-    class  Admin
+    class Admin
     {
         private string username;
-        ///function :
-        ///Remettre le guichet en funonction
-        ///Depose de l'argent
-        ///voir le solde du guichet 
-        ///return au menu principal;
+
+        
+        ///fonction :
+        ///Remettre le guichet en fonction
+        ///Deposer de l'argent
+        ///voir le solde du guichet
+        ///retour au menu principal;
         ///
         public Admin()
         {
 
+
+
         }
+
         public string GetAdminuser { get; set; }
         /*public string GetAdminuser { get => username; set => username = value; }*/
+
+
+
+        public void RemettreGuichetFonction()
+        {
+          
+
+        }
+        public void Depot(double montant)
+        {
+
+
+
+        }
+        public void VoirSoldeGuichet()
+        {
+
+
+        }
+
+
+
+        public void AfficherLlisteComptes()
+        {
+
+
+
+        }
+        public void RetournerMenuPrincipal()
+        {
+
+
+
+        }
     }
 }

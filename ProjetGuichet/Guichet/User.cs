@@ -11,6 +11,7 @@ namespace Guichet
 
 
         }
+        public void teste() { }
 
     }
 }
