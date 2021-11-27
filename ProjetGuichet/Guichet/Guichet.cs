@@ -10,118 +10,96 @@ namespace Guichet
     {
         // montat depart 10 000$;
         // voir la liste de compte
-        private int mDepart = 10000;
-        private int mDeposedansGuichet = 0;
-        private string nbdeCompte;
-        private int tries;
-        private const int maxTries = 3;
 
-        public string NbdeCompte { get => nbdeCompte; set => nbdeCompte = value; }
+        private bool isON = true;
+        private decimal montatnDuGuichet;
+        private decimal montantMaximum = 10000;
+        private Guichet guichet;
+      
+        private const int maxMauvaisEsai = 3;
+        
+        private CompteClient selectedAccount;
+
+       
+        public bool IsON { get => isON; set => isON = value; }
+        public decimal GetMontatnDuGuichet { get => montatnDuGuichet; set => montatnDuGuichet = value; }
+
         private List<CompteClient> listeClients = new List<CompteClient>();
-        private List<CompteCheque> comptesCheques = new List<CompteCheque>();
-        private List<CompteEpargne> compteEpargne = new List<CompteEpargne>();
+
 
         public Guichet()
         {
-            CompteCheque client = new CompteCheque("Marc", "123456", "1234", 100.50M, false);
-            comptesCheques.Add(new CompteCheque("Marc", "12345", "1234", 100.50M, false));
-            comptesCheques.Add(client);
-            compteEpargne.Add(new CompteEpargne("Marc", "12345678", "1234", 109.50M, false));
-
-
-            Login();
-            /* foreach (CompteCheque a in compteCheques)
+            
+            montatnDuGuichet = 1000;
+            VoirSoldeGuichet();
+            Console.Write("sdfdsfdsfsdfsdfsdf: ");
+            decimal test = Convert.ToDecimal(Console.ReadLine());
+            RemplirGuichet(test);
+            VoirSoldeGuichet();
+            //Initialise les 5 clients avce l'Admin
+            listeClients = new List<CompteClient>
             {
-            Console.WriteLine($"Numero de compte Cheques : {a.GetNumeroCompte} {a.GetMotPasse} {a.GetBalance} ");
-            }
-            foreach (CompteEpargne a in compteEpargne)
-            {
+                
+               new CompteCheque() { Nom= "Djavo", GetNumeroCompte ="12345678" ,GetMotPasse ="a123", GetBalance =150.50M , IsLocked=false},
+               new CompteCheque() { Nom= "Alen", GetNumeroCompte ="22334455" ,GetMotPasse ="!bthi", GetBalance =150.50M , IsLocked=false},
 
+               new CompteEpargne() { Nom="Nancy" , GetNumeroCompte ="44556677" ,GetMotPasse="^ujik", GetBalance =503.09M ,IsLocked=false},
+               new CompteEpargne() { Nom= "Jean-Simon", GetNumeroCompte ="55667788" ,GetMotPasse ="555", GetBalance =550.50M , IsLocked=false}
 
-            Console.WriteLine($"Numero de compte Epargne : {a.GetNumeroCompte} {a.GetBalance} "); }*/
+            };
+            //Login();
 
-            CompteCheque compteCourant = new CompteCheque("Marc", "Djavo", "1234", 100.50M, false);
-            Console.Write("Entrez le montant du retrait : ");
-            decimal montantretrait = Convert.ToDecimal(Console.ReadLine());
-
-            compteCourant.Retrait(montantretrait);
-
-            Console.WriteLine(compteCourant.AfficherSolde());
-            Console.WriteLine(compteCourant.GetMotPasse);
-
-            Console.Write("Entrez le montant du dépot : ");
-            decimal montantDepot = Convert.ToDecimal(Console.ReadLine());
-            compteCourant.Virement(montantDepot);
-
-            Console.Write("Entrez le montant à payer : ");
-            decimal montanttoPay = Convert.ToDecimal(Console.ReadLine());
-            compteCourant.PayBill(montanttoPay);
-            Console.WriteLine(compteCourant.AfficherSolde());
+            AfficherLlisteComptes();
 
         }
-        //Initialiser les 5 utilisateur
-        //et devrais appeller la methode dans Constructeur du guichet
-        public void Initialization()
-        {
-            mDepart = 0;
-            comptesCheques.Add(new CompteCheque("Marc", "CompteCheques", "1234", 100.50M, false));
-            compteEpargne.Add(new CompteEpargne("Marc", "CompteEpargne", "1234", 100.50M, false));
-        }
+
         public void ClientLogin()
         {
-            CompteCheque client = new CompteCheque("Marc", "123456", "1234", 100.50M, false);
-            string numerocompte = client.GetNumeroCompte;
-            string motpasse = client.GetMotPasse;
-            //bool isSignedin = false;
             Console.WriteLine("-----Accès client-----\n" +
             "Entrer numero de compte & mot de passe");
-            int mauvais = 0;
+            bool goTonext = false;
+            int mauvaisEsai = 0;
 
-        // Lire le userName du client
-        gotoPin:
-            Console.Write("Utilisateur: ");
-            client.GetNumeroCompte = Console.ReadLine();
-            Console.Write("Mot de passe: ");
-            client.GetMotPasse = Console.ReadLine();
-
-
-            if (client.GetNumeroCompte.Equals(numerocompte) && client.GetMotPasse.Equals(motpasse))
+            while (!goTonext)
             {
-                Console.WriteLine("Le numéro de compte est valide ");
-                //Affiche le menu  du utilisteur 
-            }
-            else
-            {
-                mauvais++;
-                if (mauvais < 3)
-                {
-                    //Mauvais mot de passe veuillez réessayer
-                    string a = "Données incorrect !";
-                    CompteClient.PrintMessage(a, false);
-                    goto gotoPin;
-                }
-                else if (mauvais == 3)
-                {
-                    string a = "Vous avez saisi 3 fois des données incorrect. Le compte est en panne !";
-                    CompteClient.PrintMessage(a, false);
-                    Environment.Exit(0);
-                }
-            }
-
-        }
-        public void AdminLogin() 
-        {
-            Console.WriteLine("-----Accès admin-----\n" +
-                            " Entrer numéro de compte & mot de passe");
-
-            //Declare a Admin object
-            Admin admin = new Admin();
-            bool isSignedin = false;
-            while (!isSignedin)
-            {
-                // Lire le userName du admin
+                
+                string numerocompte;
+                string motpasse;
                 Console.Write("Utilisateur: ");
-                admin.GetAdminuser = Console.ReadLine();
+                numerocompte = Console.ReadLine();
+                Console.Write("Mot de passe: ");
+                motpasse = Console.ReadLine();
+                
+                foreach (CompteClient account in listeClients)
+                {
+                    if (account.GetNumeroCompte.Equals(numerocompte))
+                    {
+                        selectedAccount = account;
+
+                        if (account.GetMotPasse.Equals(motpasse))
+                        {
+                            if (selectedAccount.IsLocked)
+                                CompteClient.LockAccount();
+                            else
+                                goTonext = true;
+                        }
+                        else
+                        {
+                            goTonext = false;
+                            mauvaisEsai++;
+
+                            if (mauvaisEsai >= maxMauvaisEsai)
+                            {
+                                selectedAccount.IsLocked = true;
+                                CompteClient.LockAccount();
+                            }
+
+                        }
+                    }
+                }
+
+                if (!goTonext)
+                    CompteClient.PrintMessage("Données incorrect!", false);
             }
         }
 
@@ -148,10 +126,7 @@ namespace Guichet
                             AdminLogin();
                             break;
                         case "3":
-                            {
                                 Environment.Exit(0);
-                            }
-
                             break;
                     }
                 }
@@ -168,5 +143,71 @@ namespace Guichet
             }
         }
 
+
+        /// <summary>
+        /// Section  Admin 
+        /// </summary>
+        /// <param"></param>
+        /// <returns></returns>
+
+        public void AdminLogin()
+        {
+            Console.WriteLine("-----Accès admin-----\n" +
+                            " Entrer numéro de compte & mot de passe");
+
+            //Declare a Admin object
+            //  Admin admin = new Admin();
+            bool isSignedin = false;
+            while (!isSignedin)
+            {
+                // Lire le userName du admin
+                Console.Write("Utilisateur: ");
+                // admin.GetAdminuser = Console.ReadLine();
+            }
+        }
+        public decimal RemplirGuichet(decimal montant)
+        {
+            decimal soldeTemp = montatnDuGuichet + montant;
+
+            if (soldeTemp > montantMaximum)
+            {
+                throw new Exception($"Le montant excède la valeur maximum permis {montantMaximum}.");
+               
+            }
+            return AdminDepot(montant);
+        }
+
+        public void VoirSoldeGuichet()
+        {
+            Console.WriteLine(GetMontatnDuGuichet);
+
+        }
+
+        public decimal AdminDepot(decimal montant)
+        {
+            return montatnDuGuichet = montatnDuGuichet + montant;
+        }
+        //Affiche les Liste de tout le Comptes 
+        public void AfficherLlisteComptes()
+        {
+
+            foreach (CompteClient account in listeClients)
+            {
+                
+                Console.WriteLine($" Nom: {account.Nom}   Numero du Compte: { account.GetNumeroCompte}  Solde du Compte: {account.GetBalance}   Etat du Compte:{account.IsLocked}");
+
+            }
+        }
+
+        //Admin peux chosire de alle au menu Principal 
+        public void RetournerMenuPrincipal()
+        {
+
+        }
+        //Admin peux remetre le Guichet  A  ON
+        public void RemettreGuichetFonction() 
+        { 
+
+        }
     }
 }
