@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
+using System.Linq;
 
 namespace Guichet
 {
@@ -13,8 +14,6 @@ namespace Guichet
         protected string motpasse;   // minimum 4 caractere peut importe le type 
         protected bool isLocked;
         protected string typecompte;
-        
-
 
 
         public string GetTypeCompte { get => typecompte; set => typecompte = value; }
@@ -55,10 +54,8 @@ namespace Guichet
         //Fonction fermer le commpte 
         public static void LockAccount()
         {
-            Console.Clear();
-            PrintMessage("Le compte est vérouiller.", true);
+            PrintMessage("Vous avez saisi 3 fois des données incorrect. Le compte est vérouiller.", false);
             Console.WriteLine("Appeller l'admin pour le déverouiller.");
-            Console.ReadKey();
             System.Environment.Exit(1);
         }
 
@@ -78,12 +75,26 @@ namespace Guichet
 
         public abstract void VirmentEntreCompte(CompteClient Receiver, decimal montant);
 
-       // public abstract void ChangeMotPass(CompteClient a ,string numerocompte);
+       public void ChangeMotPass() 
+        {
+            string firstPin, secondPin;
 
-        //public abstract void ChangeMotPass();
-        //methode normal:
-        //methode changer mot passe
-        //methode fermer session
+            Console.WriteLine("Enter Le nouveu mot de passe: ");
+            firstPin = Console.ReadLine();
+            Console.WriteLine("Reentre  a nouve le mote de passe : ");
+            secondPin = Console.ReadLine();
+            if (firstPin == secondPin)
+            {
+                Console.WriteLine("Le mote de passe a ete change avce suces!");
+                GetMotPasse = firstPin;
+            }
+            else
+            {
+                Console.WriteLine("le mote passe ne matche pas ");
+                ChangeMotPass();
+            }
+        }
+
 
     }
 }
