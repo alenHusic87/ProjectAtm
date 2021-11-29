@@ -67,3 +67,45 @@ C:\Users\alenh\OneDrive\Bureau\tets\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.
 C:\Users\alenh\OneDrive\Bureau\tets\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.dll
 C:\Users\alenh\OneDrive\Bureau\tets\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.pdb
 C:\Users\alenh\OneDrive\Bureau\tets\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.genruntimeconfig.cache
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.exe
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.deps.json
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.json
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.dev.json
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.AssemblyReference.cache
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfoInputs.cache
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfo.cs
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.CoreCompileInputs.cache
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\jsmar\OneDrive\Bureau\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.genruntimeconfig.cache
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.exe
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.deps.json
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.json
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.dev.json
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.AssemblyReference.cache
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfoInputs.cache
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfo.cs
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.CoreCompileInputs.cache
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\alenh\OneDrive\Bureau\ProjectAtm-JeanSimon\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.genruntimeconfig.cache
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.exe
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.deps.json
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.json
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.runtimeconfig.dev.json
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\bin\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.AssemblyReference.cache
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfoInputs.cache
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.AssemblyInfo.cs
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.csproj.CoreCompileInputs.cache
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.dll
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.pdb
+C:\Users\alenh\OneDrive\Bureau\New folder\ProjectAtm-AlenHusic\ProjetGuichet\Guichet\obj\Debug\netcoreapp3.1\Guichet.genruntimeconfig.cache

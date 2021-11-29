@@ -18,9 +18,9 @@ namespace Guichet
         private decimal balancEpargne;
         private decimal balancCheque;
         protected CompteCheque chequ;
-        protected CompteEpargne epargne;
+        protected static CompteEpargne epargne;
         public decimal TransferAmount { get; set; }
-
+   
 
         public string GetTypeCompte { get => typecompte; set => typecompte = value; }
         public string GetNumeroCompte { get => numerocompte; set => numerocompte = value; }
@@ -33,6 +33,7 @@ namespace Guichet
         public CompteEpargne GetEpargne { get => epargne; set => epargne = value; }
         public decimal GetBalancEpargne { get => balancEpargne; set => balancEpargne = value; }
         public decimal GetBalancCheque { get => balancCheque; set => balancCheque = value; }
+     
 
         public CompteClient()
         {
@@ -118,7 +119,7 @@ namespace Guichet
 
             if (premierPin == GetMotPasse)
             {
-                
+
                 Console.WriteLine("Reentre   ton nouve mote passe  : ");
                 deuxiemePin = Console.ReadLine();
                 Console.WriteLine("Confirme ton mot de passe : ");

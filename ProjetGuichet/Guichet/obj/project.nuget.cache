@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E1wE/KfdIWPpyr8VvkNKV6bp779nhc9pPWOoTEeaLNUQEho0b2bEX4IRBPqGaWlqQMch+65EWCXw3orTLbEe+A==",
+  "dgSpecHash": "poFbEMMjq3gSyv6tuaVFpjKQihdSBv3iY+Ab918qZVjHpk5fth+Du+SCJRnB9jFftg2H77Gn08CGPxOQ5NJphw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alenh\\OneDrive\\Bureau\\tets\\ProjetGuichet\\Guichet\\Guichet.csproj",
+  "projectFilePath": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder\\ProjectAtm-AlenHusic\\ProjetGuichet\\Guichet\\Guichet.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alenh\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\alenh\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

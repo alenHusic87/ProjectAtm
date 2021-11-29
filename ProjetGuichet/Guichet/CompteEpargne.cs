@@ -6,19 +6,15 @@ namespace Guichet
 {    
     class CompteEpargne : CompteClient
     {
-        public CompteEpargne(string nom, string numero, string pin, decimal balance, bool islocked)
+        public CompteEpargne() { }
+        public CompteEpargne(string nom, string numero, string pin, decimal balance, bool islocked ,CompteCheque chequ)
         {
-            this.numerocompte = numero;
-            this.motpasse = pin;
-            this.balance = balance;
-            this.isLocked = islocked;
-            this.nom = nom;
-        }
-        public override void VirmentEntreCompte(CompteClient destinataier, decimal montant)
-        {
-            this.Retrait(montant);
-            destinataier.Depot(montant);
-
+            GetNumeroCompte = numero;
+            GetMotPasse = pin;
+            GetBalance = balance;
+            IsLocked = islocked;
+            Nom = nom;
+            GetChequ = chequ;
         }
         public override void Retrait( decimal montant)
         {
@@ -50,9 +46,8 @@ namespace Guichet
         }
         public override string AfficherSolde()
         {
-            return "Le solde du compte " + numerocompte + " est de " + balance + "$";
+            return "Le solde du compte de " + GetNumeroCompte + " est de " + GetBalance + "$";
         }
-        //public override void ChangeMotPass(CompteClient a ,string numerocompte) { }
-
+   
     }
 }
