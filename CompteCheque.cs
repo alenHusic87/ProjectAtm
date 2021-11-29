@@ -7,7 +7,10 @@ namespace Guichet
 {
     class CompteCheque : CompteClient
     {
-        
+        static decimal balanceCheque;
+
+        static decimal BalanceCheque { get => balanceCheque; set => balanceCheque = value; }
+
         public CompteCheque(decimal balancecheque,decimal blaanceepargne)
         {
             GetBalancCheque = balancecheque;
@@ -20,7 +23,7 @@ namespace Guichet
             GetBalance = balance;
             IsLocked = islocked;
             Nom = nom;
-            GetEpargne = epargne;
+            //GetEpargne = epargne;
             
         }
 
@@ -55,7 +58,10 @@ namespace Guichet
         {
             return "Le solde du compte de " + GetNumeroCompte + " est de " + GetBalance + "$";
         }
-
+        public static decimal ReturnBalanceCheque()
+        {
+            return BalanceCheque;
+        }
     }
 
    

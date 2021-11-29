@@ -14,7 +14,7 @@ namespace Guichet
             GetBalance = balance;
             IsLocked = islocked;
             Nom = nom;
-            GetChequ = chequ;
+            //GetChequ = chequ;
         }
         public override void Retrait( decimal montant)
         {
@@ -48,6 +48,7 @@ namespace Guichet
         {
             return "Le solde du compte de " + GetNumeroCompte + " est de " + GetBalance + "$";
         }
+        
    
     }
 }

@@ -25,95 +25,68 @@ namespace Guichet
         public decimal GetMontatnDuGuichet { get => montatnDuGuichet; set => montatnDuGuichet = value; }
 
         private List<CompteClient> listeClients = new List<CompteClient>();
-
+       
 
         public Guichet()
         {
             
             montatnDuGuichet = 1000;
-            /*VoirSoldeGuichet();
-            Console.Write("Test si le motant se ajoute au sold du guichet : ");
-            decimal test = Convert.ToDecimal(Console.ReadLine());
-            RemplirGuichet(test);
-            VoirSoldeGuichet();*/
 
-            //Initialise les 5 clients avce l'Admin
-            /* listeClients = new List<CompteClient>
-             {
-
-                new CompteCheque() { Nom= "Djavo", GetNumeroCompte ="12345678" ,GetMotPasse ="a123", GetBalance =150.50M , IsLocked=false },
-                new CompteCheque() { Nom= "Alen", GetNumeroCompte ="22334455" ,GetMotPasse ="!bthi", GetBalance =150.50M , IsLocked=false},
-
-                new CompteEpargne() { Nom="Nancy" , GetNumeroCompte ="44556677" ,GetMotPasse="^ujik", GetBalance =503.09M ,IsLocked=false},
-                new CompteEpargne() { Nom= "Jean-Simon", GetNumeroCompte ="55667788" ,GetMotPasse ="5556", GetBalance =550.50M , IsLocked=false}
-
-             };*/
-
-
-            CompteCheque client1 = new CompteCheque("alen", "1111", "1", 104, false, ab);
+            CompteCheque client1 = new CompteCheque("alen", "1111", "1", 1010, false, ab);
             CompteCheque client2 = new CompteCheque("alen", "2222", "2", 10132, false, ab);
             CompteCheque client3 = new CompteCheque("Nancy", "3333", "3", 10542, false, ab);
             CompteCheque client4 = new CompteCheque("Jean-Simon", "4444", "4", 1063, false, ab);
+
             listeClients.Add(client1);
             listeClients.Add(client2);
             listeClients.Add(client3);
             listeClients.Add(client4);
 
+        
 
-            //client1.ChangeMotPass();
-            //  Console.WriteLine(client1.GetMotPasse);
-
-            // listeClients.Add(client3);
-            //listeClients.Add(client4);
            
-            decimal a ;
-            Console.WriteLine("-----le motant a vire-----\n");
+            
+          /*  Console.WriteLine("-----le motant a vire-----\n");
+               decimal a;
 
-            test:
+
+        test:
             if (Decimal.TryParse(Console.ReadLine(), out a))
             {
                 // valid showingSelect
+                CompteClient.VirmentCompte(client1, client2, a);
             }
             else
             {
                 // invalid input  
-                Console.Write("please input valid number");
+                
+                CompteClient.PrintMessage("please input valid number", false);
                 goto test;  // continue loop. 
-            }
-
-
-
-
-
-            //client1.VirmentEntreCompte(client2, a);
-            /*client2.Retrait(a);
-            Console.WriteLine(montatnDuGuichet);
-            decimal total= montatnDuGuichet -a;
-
-            if (total == 0)
-            {
-                Console.WriteLine(montatnDuGuichet);
-                Console.WriteLine("panneee");
             }*/
-            //Console.WriteLine(total);
-            CompteClient.VirmentCompte(client1, client2, a);
 
-            AfficherLlisteComptes();
 
-            Console.WriteLine(client1.AfficherSolde());
+
+           // AfficherLlisteComptes();
+
+           /// Console.WriteLine(client1.AfficherSolde());
             
-            Console.WriteLine(client2.AfficherSolde());
+           // Console.WriteLine(client2.AfficherSolde());
             //a.ChangeMotPass();
-            AfficherLlisteComptes();
+           // AfficherLlisteComptes();
             //Console.WriteLine(a.GetMotPasse);
             Login();
 
+            Facture a = new Facture(100, 200, 300);
+
+
+
         }
+       
 
 
-        public void ClientLogin()
+        public CompteClient ClientLogin()
         {
-            Menu menua = new Menu();
+            
             Console.WriteLine("-----Accès client-----\n" +
             "Entrer numero de compte & mot de passe");
             bool goTonext = false;
@@ -153,7 +126,8 @@ namespace Guichet
                                 // selectedAccount.ChangeMotPass();
                                 // selectedAccount.ChangeMotPass();
                                 //menua.Menuclient();
-                                MenuA();
+                                MenuA(selectedAccount);
+                                Console.WriteLine(selectedAccount.GetMotPasse);
                                 //selectedAccount.ChangeMotPass();
                                 //selectedAccount.VirmentEntreCompte(account., 100);
                                 // Ici Devrai affcihe le Menu du Client 
@@ -170,6 +144,7 @@ namespace Guichet
                             {
                                 selectedAccount.IsLocked = true;
                                 CompteClient.LockAccount();
+                               
                             }
 
                         }
@@ -179,6 +154,7 @@ namespace Guichet
                 if (!goTonext)
                     CompteClient.PrintMessage("Données incorrect!", false);
             }
+            return selectedAccount;
         }
         
 
@@ -224,7 +200,7 @@ namespace Guichet
         }
 
    
-      public void MenuA() 
+      public void MenuA(CompteClient a) 
       {
             string options = "";
 
@@ -244,13 +220,13 @@ namespace Guichet
                 switch (options)
                 {
                     case "1":
-                        selectedAccount.ChangeMotPass();
+                        a.ChangeMotPass();
                         break;
                     case "2":
                         Console.WriteLine("ecri de quoi");
                         decimal test2 = Convert.ToDecimal(Console.ReadLine());
-                        selectedAccount.Depot(test2);
-                        Console.WriteLine(selectedAccount.AfficherSolde());
+                        a.Depot(test2);
+                        Console.WriteLine(a.AfficherSolde());
                         break;
                     case "7":
                         //quitter();
@@ -284,20 +260,110 @@ namespace Guichet
         /// <param"></param>
         /// <returns></returns>
 
-        public void AdminLogin()
+        public CompteClient AdminLogin()
         {
-            Console.WriteLine("-----Accès admin-----\n" +
-                            " Entrer numéro de compte & mot de passe");
+            CompteCheque admin = new CompteCheque("admin", "admin", "123456", 0, false, null );
+            Console.WriteLine("-----Admin client-----\n" +
+            "Entrer numero de compte & mot de passe");
+            bool goTonext = false;
+            int mauvaisEsai = 0;
 
-            //Declare a Admin object
-            //  Admin admin = new Admin();
-            bool isSignedin = false;
-            while (!isSignedin)
+            while (!goTonext)
             {
-                // Lire le userName du admin
-                Console.Write("Utilisateur: ");
-                // admin.GetAdminuser = Console.ReadLine();
+
+                string numerocompte;
+                string motpasse;
+                Console.Write("Admin: ");
+                numerocompte = Console.ReadLine();
+                Console.Write("Mot de passe: ");
+                motpasse = Console.ReadLine();
+              // IsCompteExiste(numerocompte);
+
+
+                    //if(IsLoginExist(numerocompte))
+                    if (admin.GetNumeroCompte.Equals(numerocompte))
+                    {
+
+                        selectedAccount = admin;
+
+                        if (admin.GetMotPasse.Equals(motpasse))
+                        {
+                            //Si le account actuel est Verouilles alors il vous affiche le message que le accoute il est verouille 
+                            if (selectedAccount.IsLocked)
+                            {
+                                CompteClient.LockAccount();
+
+                            }
+                            else
+                            {
+                                goTonext = true;
+                                MenuAdmin();
+
+                            }
+                        }
+                        else
+                        {
+                            goTonext = false;
+                            mauvaisEsai++;
+                          // CompteClient.PrintMessage("Données incorrect!", false);
+
+                        if (mauvaisEsai >= maxMauvaisEsai)
+                            {
+                                selectedAccount.IsLocked = true;
+                                CompteClient.LockAccount();
+
+                            }
+
+                        }
+                    }
+                if (!goTonext)
+                    CompteClient.PrintMessage("Données incorrect!", false);
             }
+            return selectedAccount;
+
+        }
+           
+
+        public void MenuAdmin()
+        {
+            string admin = "";
+
+
+
+            do
+            {
+                Console.WriteLine("1- Remettre le guichet en fonction");
+                Console.WriteLine("2- Déposer de l'argent dans le guichet");
+                Console.WriteLine("3- Voir le solde du guichet");
+                Console.WriteLine("4- Afficher la liste des comptes");
+                Console.WriteLine("5- Retourner au menu principal");
+
+
+
+                admin = Console.ReadLine();
+
+                switch (admin)
+                {
+                    case "1":
+                        RemettreGuichetFonction();
+                        break;
+                    case "2":
+                        RemplirGuichet(10);
+                        break;
+                    case "3":
+                        VoirSoldeGuichet();
+                        break;
+                    case "4":
+                        AfficherLlisteComptes();
+                        break;
+                    case "5":
+                        RetournerMenuPrincipal();
+                        break;
+                }
+
+            } while (!admin.Equals("5"));
+
+
         }
         public decimal RemplirGuichet(decimal montant)
         {
@@ -336,7 +402,7 @@ namespace Guichet
         //Admin peux chosire de alle au menu Principal 
         public void RetournerMenuPrincipal()
         {
-
+            Login();
         }
         //Admin peux remetre le Guichet  A  ON
         public void RemettreGuichetFonction() 

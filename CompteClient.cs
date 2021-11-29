@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Guichet
 {
-    abstract class CompteClient
+   public  abstract class CompteClient
     {
         protected string numerocompte;
         protected decimal balance;
@@ -17,8 +17,8 @@ namespace Guichet
 
         private decimal balancEpargne;
         private decimal balancCheque;
-        protected CompteCheque chequ;
-        protected static CompteEpargne epargne;
+        //protected CompteCheque chequ;
+       /// protected static CompteEpargne epargne;
         public decimal TransferAmount { get; set; }
    
 
@@ -29,8 +29,8 @@ namespace Guichet
         public bool IsLocked { get => isLocked; set => isLocked = value; }
         public string Nom { get => nom; set => nom = value; }
         public List<CompteClient> ClientsList { get; private set; }
-        public CompteCheque GetChequ { get => chequ; set => chequ = value; }
-        public CompteEpargne GetEpargne { get => epargne; set => epargne = value; }
+       // public CompteCheque GetChequ { get => chequ; set => chequ = value; }
+       // public CompteEpargne GetEpargne { get => epargne; set => epargne = value; }
         public decimal GetBalancEpargne { get => balancEpargne; set => balancEpargne = value; }
         public decimal GetBalancCheque { get => balancCheque; set => balancCheque = value; }
      
@@ -87,74 +87,85 @@ namespace Guichet
 
         public static  void VirmentCompte(CompteClient celuiquienvoie, CompteClient destinataire,decimal montant)
         {
-            ///Console.WriteLine("*** Veuillez saisir vois 5 nombres en 1 et 200 ***");
-
-
-                    
-
-            
-                    if (montant <= 0)
-                    {
-                        CompteClient.PrintMessage("le monta devrai etre plus grande que zero", false);
-
-                    }
-                    else if (celuiquienvoie.GetBalance < montant)
-                    {
-                        CompteClient.PrintMessage($"Retrai ne function pas tu nas pas assez de money money ", false);
-
-                    }
-                    else
-                    {
-
-                        celuiquienvoie.Retrait(montant);
-                        destinataire.Depot(montant);
-                        CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.GetNumeroCompte + "    " + " NOm:" + " " + destinataire.Nom }", true);
-                    }
-   
-
-           
-
-            /*if (montant <= 0)
+            if (montant <= 0)
             {
-                CompteClient.PrintMessage("le monta devrai etre plus grande que zero", false);
-
+              CompteClient.PrintMessage("le monta devrai etre plus grande que zero", false);
             }
             else if (celuiquienvoie.GetBalance < montant)
             {
                 CompteClient.PrintMessage($"Retrai ne function pas tu nas pas assez de money money ", false);
-
             }
             else
             {
+                if(montant >= 1000) 
+                {
+                    CompteClient.PrintMessage($"Neeed Pasword ", false);
+                }
+                else 
+                {
+                    celuiquienvoie.Retrait(montant);
+                    destinataire.Depot(montant);
+                    CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.GetNumeroCompte + "    " + " NOm:" + " " + destinataire.Nom }", true);
 
-                celuiquienvoie.Retrait(montant);
-                destinataire.Depot(montant);
-                CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.GetNumeroCompte +  "    "  +  " NOm:"  + " " +destinataire.Nom }", true);
-            }*/
+                }
+
+            }
+
+        }
+        public bool isValidPin(string s)
+        {
+            if (s.Length == 0 || s.Length > 4)
+            {
+                return false;
+                Console.WriteLine($"mot de passe devrai etre plus grande que 4   ");
+            }
+     
+            return true;
         }
 
         public   void ChangeMotPass() 
         {
 
-            string premierPin, deuxiemePin;
+            string actuelPin, deuxiemePin;
             string troisiemePin;
 
-             Console.WriteLine("Enter actuel  mot de passe: ");
-            premierPin = Console.ReadLine();
+            Console.WriteLine("Enter actuel  mot de passe: ");
+            actuelPin = Console.ReadLine();
 
-            if (premierPin == GetMotPasse)
+
+     
+          /*  while (actuelPin.Equals(GetMotPasse)) 
+            {
+                Console.WriteLine("Reentre   ton nouve mote passe  : ");
+                deuxiemePin = Console.ReadLine();
+                //isValidPin(deuxiemePin);
+                Console.WriteLine("Confirme ton mot de passe : ");
+                troisiemePin = Console.ReadLine();
+                while (troisiemePin.Equals(deuxiemePin))
+                {
+                    Console.WriteLine("Confirme successton : ");
+                }
+                GetMotPasse = troisiemePin;
+
+            }*/
+
+         
+
+            if (actuelPin.Equals(GetMotPasse))
             {
 
                 Console.WriteLine("Reentre   ton nouve mote passe  : ");
                 deuxiemePin = Console.ReadLine();
+                //isValidPin(deuxiemePin);
                 Console.WriteLine("Confirme ton mot de passe : ");
                 troisiemePin = Console.ReadLine();
 
-                if(troisiemePin == deuxiemePin) 
+                if(troisiemePin.Equals(deuxiemePin)) 
                 {
                     GetMotPasse = troisiemePin;
+                   
                 }
-                else
+                else 
                 {
                     Console.WriteLine("le  nouve mote passe ne est pa pareille : ");
                     ChangeMotPass();
@@ -162,6 +173,7 @@ namespace Guichet
             }
             else
             {
+               
                 Console.WriteLine("Ton mot passe actuel n eats pa celui la que tu as rentre  ");
                 ChangeMotPass();
             }
