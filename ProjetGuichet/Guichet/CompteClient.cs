@@ -15,6 +15,12 @@ namespace Guichet
         protected bool isLocked;
         protected string typecompte;
 
+        private decimal balancEpargne;
+        private decimal balancCheque;
+        protected CompteCheque chequ;
+        protected CompteEpargne epargne;
+        public decimal TransferAmount { get; set; }
+
 
         public string GetTypeCompte { get => typecompte; set => typecompte = value; }
         public string GetNumeroCompte { get => numerocompte; set => numerocompte = value; }
@@ -23,12 +29,20 @@ namespace Guichet
         public bool IsLocked { get => isLocked; set => isLocked = value; }
         public string Nom { get => nom; set => nom = value; }
         public List<CompteClient> ClientsList { get; private set; }
-       
+        public CompteCheque GetChequ { get => chequ; set => chequ = value; }
+        public CompteEpargne GetEpargne { get => epargne; set => epargne = value; }
+        public decimal GetBalancEpargne { get => balancEpargne; set => balancEpargne = value; }
+        public decimal GetBalancCheque { get => balancCheque; set => balancCheque = value; }
 
         public CompteClient()
         {
         }
 
+       /* public CompteClient(CompteCheque chequ ,CompteEpargne epargne)
+        {
+            this.chequ = chequ;
+            this.epargne = epargne;
+        }*/
         public CompteClient(string numerocompte, string  motpasse, decimal balance)
         {
             this.numerocompte = numerocompte;
@@ -50,7 +64,6 @@ namespace Guichet
             Console.ResetColor();
         }
 
-
         //Fonction fermer le commpte 
         public static void LockAccount()
         {
@@ -71,30 +84,62 @@ namespace Guichet
         // La méthode abstraite PayBill 
         public abstract void PayBill(decimal montant);
 
-        //public abstract double VirmentEntreCompte(CompteCheque source, CompteEpargne destinataire, int montant);
-
-        public abstract void VirmentEntreCompte(CompteClient Receiver, decimal montant);
-
-       public void ChangeMotPass() 
+        public static  void VirmentCompte(CompteClient celuiquienvoie, CompteClient destinataire,decimal montant)
         {
-            string firstPin, secondPin;
+            
 
-            Console.WriteLine("Enter Le nouveu mot de passe: ");
-            firstPin = Console.ReadLine();
-            Console.WriteLine("Reentre  a nouve le mote de passe : ");
-            secondPin = Console.ReadLine();
-            if (firstPin == secondPin)
+            if (montant <= 0)
             {
-                Console.WriteLine("Le mote de passe a ete change avce suces!");
-                GetMotPasse = firstPin;
+                CompteClient.PrintMessage("le monta devrai etre plus grande que zero", false);
+
+            }
+            else if (celuiquienvoie.GetBalance < montant)
+            {
+                CompteClient.PrintMessage($"Retrai ne function pas tu nas pas assez de money money ", false);
+
             }
             else
             {
-                Console.WriteLine("le mote passe ne matche pas ");
-                ChangeMotPass();
+
+                celuiquienvoie.Retrait(montant);
+                destinataire.Depot(montant);
+                CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.GetNumeroCompte +  "    "  +  " NOm:"  + " " +destinataire.Nom }", true);
             }
         }
 
+        public void ChangeMotPass() 
+        {
 
+            string premierPin, deuxiemePin;
+            string troisiemePin;
+
+             Console.WriteLine("Enter actuel  mot de passe: ");
+            premierPin = Console.ReadLine();
+
+            if (premierPin == GetMotPasse)
+            {
+                
+                Console.WriteLine("Reentre   ton nouve mote passe  : ");
+                deuxiemePin = Console.ReadLine();
+                Console.WriteLine("Confirme ton mot de passe : ");
+                troisiemePin = Console.ReadLine();
+
+                if(troisiemePin == deuxiemePin) 
+                {
+                    GetMotPasse = troisiemePin;
+                }
+                else
+                {
+                    Console.WriteLine("le  nouve mote passe ne est pa pareille : ");
+                    ChangeMotPass();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ton mot passe actuel n eats pa celui la que tu as rentre  ");
+                ChangeMotPass();
+            }
+            
+        }
     }
 }
