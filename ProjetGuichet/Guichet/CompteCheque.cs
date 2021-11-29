@@ -7,7 +7,10 @@ namespace Guichet
 {
     class CompteCheque : CompteClient
     {
-        
+        static decimal balanceCheque;
+
+        static decimal BalanceCheque { get => balanceCheque; set => balanceCheque = value; }
+
         public CompteCheque(decimal balancecheque,decimal blaanceepargne)
         {
             GetBalancCheque = balancecheque;
@@ -20,26 +23,39 @@ namespace Guichet
             GetBalance = balance;
             IsLocked = islocked;
             Nom = nom;
-            GetEpargne = epargne;
+            //GetEpargne = epargne;
             
         }
 
         public override void Retrait(decimal montant)
         {
-           
-            // on effectue le Retrait  
-            //ajouter la logique 
-            //voir si le solde final reste supérieur, si oui, on peut retirer
-            GetBalance -= montant;
-
-     
+            // Nancy
+            if (montant < 0)
+            {
+                Console.WriteLine("Le montant ne peut pas être négatif");
+                return;
+            }
+            if (balance <= 0)
+            {
+                Console.WriteLine("Le compte est insuffisant");
+            }
+            else if (balance >= montant)
+            {
+                this.balance = this.balance - montant;
+            }
         }
 
         public override void Depot(decimal montant)
         {
-            // on effectue le Depot  
-            // ajouter la logique 
-            GetBalance += montant;
+            if (montant < 0)
+            {
+                Console.WriteLine("Le montant ne peut pas être négatif");
+                return;
+            }
+            else
+            {
+                this.balance += montant;
+            }
         }
         public override void Virement(decimal montant)
         {
@@ -55,7 +71,10 @@ namespace Guichet
         {
             return "Le solde du compte de " + GetNumeroCompte + " est de " + GetBalance + "$";
         }
-
+        public static decimal ReturnBalanceCheque()
+        {
+            return BalanceCheque;
+        }
     }
 
    

@@ -8,7 +8,7 @@ namespace Guichet
     {
         public void Menuclient()
         {
-
+            
 
             string options = "";
 
@@ -32,6 +32,7 @@ namespace Guichet
                         break;
                     case "2":
                         deposer();
+                       
                         break;
                     case "3":
                         retirer();
@@ -55,7 +56,10 @@ namespace Guichet
         }
         public void changermdp()
         {
+            
             Console.WriteLine("1");
+           
+            
         }
         public void deposer()
         {
@@ -140,6 +144,7 @@ namespace Guichet
                 Console.WriteLine("epargne");
                 Environment.Exit(0);
             }
+            
         }
 
         public void virementcompte()
@@ -273,6 +278,7 @@ namespace Guichet
         {
             Environment.Exit(0);
         }
+       
 
     }
 }

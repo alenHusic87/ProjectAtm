@@ -14,11 +14,18 @@ namespace Guichet
             GetBalance = balance;
             IsLocked = islocked;
             Nom = nom;
-            GetChequ = chequ;
+            //GetChequ = chequ;
         }
-        public override void Retrait( decimal montant)
+        public override void Retrait(decimal montant)
         {
             // Nancy
+            if (montant < 0)
+            {
+                Console.WriteLine("Le montant ne peut pas être négatif");
+                return;
+            }
+
+
             if (balance <= 0)
             {
                 Console.WriteLine("Le compte est insuffisant");
@@ -28,11 +35,19 @@ namespace Guichet
                 this.balance = this.balance - montant;
             }
         }
+
+
         public override void Depot(decimal montant)
         {
-            // on n'effectue le Depot  
-            //ici on devrais ajouter la logique 
-            GetBalance += montant;
+            if (montant < 0)
+            {
+                Console.WriteLine("Le montant ne peut pas être négatif");
+                return;
+            }
+            else
+            {
+                this.balance += montant;
+            }
         }
         public override void Virement(decimal montant)
         {
@@ -48,6 +63,7 @@ namespace Guichet
         {
             return "Le solde du compte de " + GetNumeroCompte + " est de " + GetBalance + "$";
         }
+        
    
     }
 }
