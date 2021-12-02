@@ -39,7 +39,6 @@ namespace Guichet
 
             return montant;
         }
-
         internal decimal AmountToDeposit()
         {
             decimal montant=0;
@@ -58,7 +57,6 @@ namespace Guichet
 
             return montant;
         }
-
         internal CompteClient GetByNumeroCompte(string utlisateur, List<CompteClient> listeClients)
         {
             CompteClient client = listeClients.Find(c => c.GetNumeroCompte == utlisateur);

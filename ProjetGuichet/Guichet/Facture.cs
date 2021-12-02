@@ -4,9 +4,6 @@ using System.Text;
 
 namespace Guichet
 {
-   
- 
-
     class Facture
     {
         private decimal factureAmazon;
@@ -22,7 +19,7 @@ namespace Guichet
         {
             this.FactureVideotron = FactureVideotron;
             this.factureBell = factureBell;
-            this.FactureVideotron = factureAmazon;
+            this.factureAmazon = factureAmazon;
         }
         public Facture(string bell ,decimal factureBell , string amazon  ,decimal factureAmazon , string videotron , decimal FactureVideotron) 
         {

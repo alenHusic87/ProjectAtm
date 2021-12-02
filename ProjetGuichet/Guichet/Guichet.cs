@@ -2,16 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 
 namespace Guichet
 {
+    enum EtatGuichet
+    {
+        ACTIF,
+        PANNE,
+
+
+    }
 
     public class Guichet
     {
-
+        private  EtatGuichet myvar = EtatGuichet.ACTIF;
+        
         private bool isON = true;
-        private decimal montatnDuGuichet;
+        private static decimal montatnDuGuichet;
         private decimal montantMaximum = 10000;
         
         private const int maxMauvaisEsai = 3;
@@ -20,24 +29,33 @@ namespace Guichet
         private CompteEpargne ab;
        
         public bool IsON { get => isON; set => isON = value; }
-        public decimal GetMontatnDuGuichet { get => montatnDuGuichet; set => montatnDuGuichet = value; }
+        public static decimal GetMontatnDuGuichet { get => montatnDuGuichet; set => montatnDuGuichet = value; }
+        internal EtatGuichet Myvar { get => myvar; set => myvar = value; }
 
         private List<CompteClient> listeClients = new List<CompteClient>();
         private List<CompteCheque> listeClientsCheque= new List<CompteCheque>();
         private List<CompteEpargne> listeClientsEpargne = new List<CompteEpargne>();
+        private List<Facture> listeFacture = new List<Facture>();
 
         public static ConsoleKeyInfo keyInfo;
+        CompteCheque admin;
         public Guichet()
         {
-            
+            admin = new CompteCheque("admin", "admin", "123456", 0, false);
+            Console.WriteLine(myvar);
             montatnDuGuichet = 1000;
+            Console.WriteLine(montatnDuGuichet);
+            
+            CompteCheque clientCompteChequeAlen = new CompteCheque("Alen Cheque", "1111", "1", 20.00M, false);
+            CompteEpargne clientCompteEpargneAlen = new CompteEpargne("Alen Epargne", "2222", "2", 40.00M, false);
+            CompteCheque clientCompteChequeNancy = new CompteCheque("Nancy Cheque", "3333", "1", 1010.00M, false);
+            CompteEpargne clientCompteEpargneNancy = new CompteEpargne("Nancy Epargne", "4444", "2", 500.00M, false);
+            CompteCheque clientCompteChequeJeanSimon = new CompteCheque("JeanSimon Cheque", "5555", "1", 4567.00M, false);
+            CompteEpargne clientCompteEpargneJeanSimon = new CompteEpargne("JeanSimon Epargne", "6666", "2", 3230.00M, false);
 
-            CompteCheque clientCompteChequeAlen = new CompteCheque("Alen Cheque", "1111", "1", 0, false);
-            CompteEpargne clientCompteEpargneAlen = new CompteEpargne("Alen Epargne", "2222", "2", 0, false);
-            CompteCheque clientCompteChequeNancy = new CompteCheque("Nancy Cheque", "3333", "1", 1010, false);
-            CompteEpargne clientCompteEpargneNancy = new CompteEpargne("Nancy Epargne", "4444", "2", 0, false);
-            CompteCheque clientCompteChequeJeanSimon = new CompteCheque("JeanSimon Cheque", "5555", "1", 4567, false);
-            CompteEpargne clientCompteEpargneJeanSimon = new CompteEpargne("JeanSimon Epargne", "6666", "2", 0, false);
+            Facture facture1 = new Facture("Bell", 50, "Amazon", 60, "Videotron", 90);
+
+            listeFacture.Add(facture1);
 
             listeClients.Add(clientCompteChequeAlen);
             listeClients.Add(clientCompteEpargneAlen);
@@ -55,7 +73,6 @@ namespace Guichet
             listeClientsEpargne.Add(clientCompteEpargneNancy);
             listeClientsEpargne.Add(clientCompteEpargneJeanSimon);
 
-
             Login();
         }
         public CompteClient ClientLogin()
@@ -65,6 +82,7 @@ namespace Guichet
             "Entrer numero de compte & mot de passe");
             bool goTonext = false;
             int mauvaisEsai = 0;
+            
 
             while (!goTonext)
             {
@@ -73,12 +91,12 @@ namespace Guichet
                 string motpasse;
                 Console.Write("Utilisateur: ");
                 numerocompte = Console.ReadLine();
-                
-               Console.Write("Mot de passe: ");
-               motpasse = Console.ReadLine();
+               
+                Console.Write("Mot de passe: ");
+                motpasse = Console.ReadLine();
                
                 IsCompteExiste(numerocompte);
-                Console.Write(motpasse);
+                
 
                 foreach (CompteClient account in listeClients)
                 {
@@ -86,7 +104,6 @@ namespace Guichet
                    if (account.GetNumeroCompte.Equals(numerocompte) )
                     {
 
-                        
                         selectedAccount = account;
 
                         if (account.GetMotPasse.Equals(motpasse))
@@ -101,6 +118,7 @@ namespace Guichet
                             else
                             {
                                 CompteClient.LockAccount();
+                               
                             }
                         }
                         else
@@ -112,17 +130,21 @@ namespace Guichet
                             {
                                 selectedAccount.IsLocked = true;
                                 CompteClient.LockAccount();
-                               
+                                ClientLogin();
+
                             }
 
                         }
                     }
                 }
-
                 if (!goTonext)
                     CompteClient.PrintMessage("Données incorrect!", false);
+                
+
+
             }
             return selectedAccount;
+          
         }
         
         public void Login()
@@ -164,32 +186,14 @@ namespace Guichet
                 Console.WriteLine("S.v.p essayer encore");
             }
         }
-        private static string RequestPin() 
-        {
-            StringBuilder sb = new StringBuilder();
-            
-            do
-            {
-                keyInfo = Console.ReadKey(true);
-                if (!char.IsControl(keyInfo.KeyChar)) 
-                {
-                    sb.Append(keyInfo.KeyChar);
-                    Console.WriteLine("*");
-                }
 
-            } while (keyInfo.Key != ConsoleKey.Enter);
-            {
-                return sb.ToString();
-            }
-        }
-
-   
-        public void MenuA(CompteClient a) 
+       public void MenuA(CompteClient a) 
       {
             string options = "";
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("1- Changer le mot de passe");
                 Console.WriteLine("2- Déposer un montant dans un compte");
                 Console.WriteLine("3- Retirer un montant dans un compte");
@@ -213,7 +217,7 @@ namespace Guichet
                         MenuChoixEpargneChequeRaitrait(a);
                         break;
                     case "4":
-                        Console.WriteLine(a.AfficherSolde());
+                        MenuChoixAffichageEpargneCheque();
                         break;
                     case "7":
                         //quitter();
@@ -225,7 +229,32 @@ namespace Guichet
             } while (!options.Equals("7"));
 
         }
+        public void AficheBalanceDeCheque() 
+        {
+            foreach (CompteCheque acount in listeClientsCheque)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\t" + acount.Nom + "\t" + "#" + acount.GetNumeroCompte + "\t"+ acount.GetBalance +"$");
 
+                Console.WriteLine();
+                Console.ResetColor();
+
+            }
+
+        }
+        public void AficheBalanceDeEpargne()
+        {
+            foreach (CompteEpargne acount in listeClientsEpargne)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\t" + acount.Nom + "\t" + "#" + acount.GetNumeroCompte + "\t" + acount.GetBalance + "$");
+
+                Console.WriteLine();
+                Console.ResetColor();
+
+            }
+
+        }
         public void AficheCompteCheque() 
         {
             foreach (CompteCheque acount in listeClientsCheque)
@@ -247,6 +276,37 @@ namespace Guichet
             }
             Console.WriteLine();
             Console.ResetColor();
+        }
+        public void MenuChoixAffichageEpargneCheque()
+        {
+
+            string options = "";
+
+
+            Console.WriteLine("Dans quel compte Vous voulez Voire le solde  ?");
+            Console.WriteLine();
+            Console.WriteLine("1- Checking");
+            Console.WriteLine("2- Epargne");
+            Console.WriteLine("Faite votre choix?");
+            options = Console.ReadLine();
+
+            switch (options)
+            {
+                case "1":
+                    AficheBalanceDeCheque();
+                    break;
+                case "2":
+                    AficheBalanceDeEpargne();
+                    break;
+                case "3":
+                    ///retur au menu 
+                    break;
+                default:
+                    CompteClient.PrintMessage("Operation  invalide", false);
+                    break;
+
+            }
+
         }
         public void MenuChoixEpargneChequeDepot(CompteClient a) 
         {
@@ -287,7 +347,7 @@ namespace Guichet
             string options = "";
 
 
-            Console.WriteLine("Dans quel compte Vous voulez Depoze ?");
+            Console.WriteLine("Dans quel compte Vous voulez Retire ?");
             Console.WriteLine();
             Console.WriteLine("1- Checking");
             Console.WriteLine("2- Epargne");
@@ -299,6 +359,7 @@ namespace Guichet
                 case "1":
                     AficheCompteCheque();
                     CompteCheque.RaitraitDansleCompteCheque(a, listeClientsCheque);
+                    Console.WriteLine(montatnDuGuichet);
                     break;
                 case "2":
                     AficheCompteEpargne();
@@ -331,7 +392,7 @@ namespace Guichet
         }
         public CompteClient AdminLogin()
         {
-            CompteCheque admin = new CompteCheque("admin", "admin", "123456", 0, false );
+            //CompteCheque admin = new CompteCheque("admin", "admin", "123456", 0, false );
             Console.WriteLine("-----Admin client-----\n" +
             "Entrer numero de compte & mot de passe");
             bool goTonext = false;
@@ -471,8 +532,30 @@ namespace Guichet
         }
         //Admin peux remetre le Guichet  A  ON
         public void RemettreGuichetFonction() 
-        { 
+        {
+            Console.WriteLine("Voulez-vous remettre le systeme en fonction (O/N)?");
+            string choix = Console.ReadLine();
+            switch (choix)
+            {
+                case "O":
+                    break;
+                case "N":
+                    
+                    CompteClient.PrintMessage("Hors Service  "+ EtatGuichet.PANNE, false);
+                    admin.IsLocked = false ;
+                    //CompteClient.LockAccount();
+                    MenuAdmin();
+
+                    // Login();
+                    break;
+                default:
+                    
+                    CompteClient.PrintMessage("Operation invalide", false); ;
+                    break;
+            }
+            
 
         }
+
     }
 }

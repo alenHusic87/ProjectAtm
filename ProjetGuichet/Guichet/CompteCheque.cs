@@ -82,6 +82,7 @@ namespace Guichet
             else if (account.GetBalance >= montant)
             {
                 account.GetBalance = account.GetBalance - montant;
+                Guichet.GetMontatnDuGuichet -= montant; 
             }
 
             //account.GetBalance -= montant;
@@ -133,9 +134,9 @@ namespace Guichet
             else if (balance >= montant)
             {
                 this.balance = this.balance - montant;
+                Guichet.GetMontatnDuGuichet -= montant;
             }
         }
-
         public override void DepotparDefaut(decimal montant)
         {
             if (montant < 0)

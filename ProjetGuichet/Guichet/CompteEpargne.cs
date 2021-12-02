@@ -127,6 +127,7 @@ namespace Guichet
             else if (account.GetBalance >= montant)
             {
                 account.GetBalance = account.GetBalance - montant;
+                Guichet.GetMontatnDuGuichet -= montant;
             }
 
             //account.GetBalance -= montant;

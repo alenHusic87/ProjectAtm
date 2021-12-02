@@ -69,7 +69,9 @@ namespace Guichet
             {
                 if(montant >= 1000) 
                 {
+                    InternalClass intercals = new InternalClass();
                     CompteClient.PrintMessage($"Neeed Pasword ", false);
+                    intercals.EnterPasword();
                 }
                 else 
                 {
@@ -101,7 +103,7 @@ namespace Guichet
         {
             PrintMessage("Vous avez saisi 3 fois des données incorrect. Le compte est vérouiller.", false);
             Console.WriteLine("Appeller l'admin pour le déverouiller.");
-            System.Environment.Exit(1);
+            //System.Environment.Exit(1);
         }
         public static void PrintMessage(string msg, bool success)
         {
