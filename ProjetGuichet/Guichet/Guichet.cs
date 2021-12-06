@@ -11,51 +11,48 @@ namespace Guichet
     {
         ACTIF,
         PANNE,
-
-
     }
 
     public class Guichet
     {
-        private  EtatGuichet myvar = EtatGuichet.ACTIF;
-        
+        private EtatGuichet myvar = EtatGuichet.ACTIF;
+
         private bool isON = true;
         private static decimal montatnDuGuichet;
         private decimal montantMaximum = 10000;
-        
+
         private const int maxMauvaisEsai = 3;
-        
+
         private CompteClient selectedAccount;
-        private CompteEpargne ab;
-       
         public bool IsON { get => isON; set => isON = value; }
         public static decimal GetMontatnDuGuichet { get => montatnDuGuichet; set => montatnDuGuichet = value; }
         internal EtatGuichet Myvar { get => myvar; set => myvar = value; }
 
-        private List<CompteClient> listeClients = new List<CompteClient>();
-        private List<CompteCheque> listeClientsCheque= new List<CompteCheque>();
-        private List<CompteEpargne> listeClientsEpargne = new List<CompteEpargne>();
-        private List<Facture> listeFacture = new List<Facture>();
+        public static List<CompteClient> listeClients = new List<CompteClient>();
+       
 
-        public static ConsoleKeyInfo keyInfo;
+        public static Facture amazon = new Facture(145, "Amazon", 100);
+        public static Facture bell = new Facture(146, "Bell", 100);
+        public static Facture videotron = new Facture(147, "Videotron", 100);
+
         CompteCheque admin;
         public Guichet()
         {
-            admin = new CompteCheque("admin", "admin", "123456", 0, false);
+
+
+            admin = new CompteCheque("admin", "admin", "123456", 0, 0,false, "ACTIVE");
             Console.WriteLine(myvar);
-            montatnDuGuichet = 1000;
+            montatnDuGuichet = 9000;
             Console.WriteLine(montatnDuGuichet);
-            
-            CompteCheque clientCompteChequeAlen = new CompteCheque("Alen Cheque", "1111", "1", 20.00M, false);
-            CompteEpargne clientCompteEpargneAlen = new CompteEpargne("Alen Epargne", "2222", "2", 40.00M, false);
-            CompteCheque clientCompteChequeNancy = new CompteCheque("Nancy Cheque", "3333", "1", 1010.00M, false);
-            CompteEpargne clientCompteEpargneNancy = new CompteEpargne("Nancy Epargne", "4444", "2", 500.00M, false);
-            CompteCheque clientCompteChequeJeanSimon = new CompteCheque("JeanSimon Cheque", "5555", "1", 4567.00M, false);
-            CompteEpargne clientCompteEpargneJeanSimon = new CompteEpargne("JeanSimon Epargne", "6666", "2", 3230.00M, false);
 
-            Facture facture1 = new Facture("Bell", 50, "Amazon", 60, "Videotron", 90);
+            CompteCheque clientCompteChequeAlen = new CompteCheque("Alen", "1111", "1alen", 200.00M,500.08M ,false,"ACTIVE");
+            CompteCheque clientCompteEpargneAlen = new CompteCheque("Alen", "2222", "2alen", 4000.00M,600.05m, false, "ACTIVE");
+            CompteCheque clientCompteChequeNancy = new CompteCheque("Nancy ", "3333", "alen", 1010.00M,500.0M ,false, "ACTIVE");
+            CompteCheque clientCompteEpargneNancy = new CompteCheque("Nancy ", "4444", "alen23", 5000.00M,790.0M ,false, "ACTIVE");
+            CompteCheque clientCompteChequeJeanSimon = new CompteCheque("J-Simon ", "5555", "alen2", 4567.00M,689.08M, false, "ACTIVE");
+            CompteCheque clientCompteEpargneJeanSimon = new CompteCheque("J-Simon ", "6666", "2", 3230.00M,897.09m,false, "ACTIVE");
 
-            listeFacture.Add(facture1);
+
 
             listeClients.Add(clientCompteChequeAlen);
             listeClients.Add(clientCompteEpargneAlen);
@@ -64,44 +61,35 @@ namespace Guichet
             listeClients.Add(clientCompteChequeJeanSimon);
             listeClients.Add(clientCompteEpargneJeanSimon);
 
-
-            listeClientsCheque.Add(clientCompteChequeAlen);
-            listeClientsCheque.Add(clientCompteChequeNancy);
-            listeClientsCheque.Add(clientCompteChequeJeanSimon);
-
-            listeClientsEpargne.Add(clientCompteEpargneAlen);
-            listeClientsEpargne.Add(clientCompteEpargneNancy);
-            listeClientsEpargne.Add(clientCompteEpargneJeanSimon);
-
             Login();
         }
-        public CompteClient ClientLogin()
+        public  CompteClient ClientLogin()
         {
-            
+
             Console.WriteLine("-----Accès client-----\n" +
             "Entrer numero de compte & mot de passe");
             bool goTonext = false;
             int mauvaisEsai = 0;
-            
+
 
             while (!goTonext)
             {
-                
+
                 string numerocompte;
                 string motpasse;
                 Console.Write("Utilisateur: ");
                 numerocompte = Console.ReadLine();
-               
+
                 Console.Write("Mot de passe: ");
                 motpasse = Console.ReadLine();
-               
+
                 IsCompteExiste(numerocompte);
-                
+
 
                 foreach (CompteClient account in listeClients)
                 {
                     //if(IsLoginExist(numerocompte))
-                   if (account.GetNumeroCompte.Equals(numerocompte) )
+                    if (account.GetNumeroCompte.Equals(numerocompte))
                     {
 
                         selectedAccount = account;
@@ -113,12 +101,13 @@ namespace Guichet
                             {
                                 MenuA(selectedAccount);
                                 goTonext = true;
-
+                                
                             }
                             else
                             {
                                 CompteClient.LockAccount();
-                               
+                                selectedAccount.GetEtatcompote = "NO-ACTIVE";
+
                             }
                         }
                         else
@@ -130,7 +119,8 @@ namespace Guichet
                             {
                                 selectedAccount.IsLocked = true;
                                 CompteClient.LockAccount();
-                                ClientLogin();
+                                selectedAccount.GetEtatcompote = "NO-ACTIVE";
+                                Login();
 
                             }
 
@@ -139,14 +129,13 @@ namespace Guichet
                 }
                 if (!goTonext)
                     CompteClient.PrintMessage("Données incorrect!", false);
-                
+
 
 
             }
             return selectedAccount;
-          
+
         }
-        
         public void Login()
         {
             Console.WriteLine("Veuillez choisir l'une des actions suivantes:\n" +
@@ -170,7 +159,7 @@ namespace Guichet
                             AdminLogin();
                             break;
                         case "3":
-                                Environment.Exit(0);
+                            Environment.Exit(0);
                             break;
                     }
                 }
@@ -186,9 +175,8 @@ namespace Guichet
                 Console.WriteLine("S.v.p essayer encore");
             }
         }
-
-       public void MenuA(CompteClient a) 
-      {
+        public void MenuA(CompteClient a)
+        {
             string options = "";
 
             do
@@ -209,19 +197,25 @@ namespace Guichet
                 {
                     case "1":
                         a.ChangeMotPass();
+                         Login();
                         break;
                     case "2":
-                        MenuChoixEpargneChequeDepot(a);
+                        DeposerMontant(a);
                         break;
                     case "3":
-                        MenuChoixEpargneChequeRaitrait(a);
+                        RetireMontant(a);
                         break;
                     case "4":
-                        MenuChoixAffichageEpargneCheque();
+                        MenuChoixAffichageEpargneCheque(a);
+                        break;
+                    case "5":
+                        VireMoneyEntreDeuxCompte();
+                        break;
+                    case "6":
+                        PayerFacture();
                         break;
                     case "7":
                         //quitter();
-                       
                         break;
 
                 }
@@ -229,55 +223,208 @@ namespace Guichet
             } while (!options.Equals("7"));
 
         }
-        public void AficheBalanceDeCheque() 
+        public void VireMoneyEntreDeuxCompte()
         {
-            foreach (CompteCheque acount in listeClientsCheque)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\t" + acount.Nom + "\t" + "#" + acount.GetNumeroCompte + "\t"+ acount.GetBalance +"$");
+            InternalClass inter = new InternalClass();
+            CompteClient destintaire;
+            CompteClient reciver;
 
-                Console.WriteLine();
-                Console.ResetColor();
+            AfficherLlisteComptesSansBalance();
+
+
+            string userdestintaire = inter.EnterUser("Destinataire");
+            destintaire = inter.GetByNumeroCompte(userdestintaire, listeClients);
+    
+
+            string userreciver = inter.EnterUser("Reciver");
+            reciver = inter.GetByNumeroCompte(userreciver, listeClients);
+            while (destintaire == null || reciver == null )
+            {
+
+                CompteClient.PrintMessage("une de Compte ne existe pas   ", false);
+                userdestintaire = inter.EnterUser("Destinataire");
+                destintaire = inter.GetByNumeroCompte(userdestintaire, listeClients);
+                userreciver = inter.EnterUser("Reciver");
+                reciver = inter.GetByNumeroCompte(userreciver, listeClients);
+
+            }
+            if (destintaire.Equals(reciver))
+            {
+                CompteClient.PrintMessage("Le Compte est le meme  ", false);
+              
+                VireMoneyEntreDeuxCompte();
 
             }
 
+
+            CompteClient.VirmentCompte(destintaire, reciver, inter.AmountToRetire());
         }
-        public void AficheBalanceDeEpargne()
+        public void DeposerMontant(CompteClient aba)
         {
-            foreach (CompteEpargne acount in listeClientsEpargne)
+            InternalClass rv = new InternalClass();
+            decimal montant = rv.AmountToDeposit();
+            while (montant <= 0 || montant.Equals(10000))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\t" + acount.Nom + "\t" + "#" + acount.GetNumeroCompte + "\t" + acount.GetBalance + "$");
-
-                Console.WriteLine();
-                Console.ResetColor();
-
+                Console.WriteLine("Montant invalide ");
+                montant = 0;
+                montant = rv.AmountToDeposit();
             }
 
-        }
-        public void AficheCompteCheque() 
-        {
-            foreach (CompteCheque acount in listeClientsCheque)
+            Console.WriteLine("dans quel compte vous voulez depose");
+            Console.WriteLine("1:Cheque");
+            Console.WriteLine("2:Epargne");
+            string compte = Console.ReadLine();
+            switch (compte)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\t" + acount.Nom + "\t" + "#" + acount.GetNumeroCompte);
-                
-                Console.WriteLine();
-                Console.ResetColor();
-
-            }
-        }
-        public void AficheCompteEpargne()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            foreach (CompteEpargne acount in listeClientsEpargne)
-            {
-                Console.WriteLine("\t" + acount.Nom + "\t" + "#" + acount.GetNumeroCompte);
+                case "1":
+                    aba.DepotparDefaut(montant);
+                    Console.WriteLine("Nouveau Solde du compte cheque : " + aba.GetBalance);
+                    break;
+                case "2":
+                    aba.DepotparDefautDansEpargne(montant);
+                    Console.WriteLine("Nouveau Solde du compte epargne : " + aba.GetBalanceEpargne);
+                    break;
+                default:
+                    Console.WriteLine("Operation  invalide");
+                    break;
             }
             Console.WriteLine();
-            Console.ResetColor();
+
         }
-        public void MenuChoixAffichageEpargneCheque()
+        public void RetireMontant(CompteClient aba)
+        {
+            InternalClass rv = new InternalClass();
+            decimal montant = rv.AmountToRetire();
+
+            Console.WriteLine("de quel compte vous voulez retire");
+            Console.WriteLine("1:Cheque");
+            Console.WriteLine("2:Epargne");
+            string compte = Console.ReadLine();
+            switch (compte)
+            {
+                case "1":
+                    while (aba.GetBalance < montant || montant.Equals(10000))
+                    {
+                        CompteClient.PrintMessage("montant insufisant ", false);
+                        montant = 0;
+                        montant = rv.AmountToRetire();
+
+                    }
+                    aba.Retrait(montant);
+                    Console.WriteLine("Nouveau solde du compte cheque : " + aba.GetBalance);
+                    break;
+                case "2":
+                    while (aba.GetBalanceEpargne < montant || montant.Equals(10000))
+                    {
+                        CompteClient.PrintMessage("montant insufisant ", false);
+                        montant = 0;
+                        montant = rv.AmountToRetire();
+
+                    }
+                    aba.RetraitDeCompteEpargne(montant);
+                    Console.WriteLine("Nouveau olde du compte epargne : " + aba.GetBalanceEpargne);
+                    break;
+                default:
+                    Console.WriteLine("Operation  invalide");
+                    break;
+            }
+            Console.WriteLine();
+
+        }
+        public void RetireMontantToPaye(CompteClient aba, decimal montant)
+        {
+            InternalClass rv = new InternalClass();
+
+            Console.WriteLine("de quel compte vous voulez payer");
+            Console.WriteLine("1:Cheque");
+            Console.WriteLine("2:Epargne");
+            string compte = Console.ReadLine();
+            switch (compte)
+            {
+                case "1":
+                    while (aba.GetBalance < montant+2 || montant.Equals(10000))
+                    {
+                        CompteClient.PrintMessage("montant insufisant ", false);
+                        VeuxTuAlleauMenu();
+                        montant = 0;
+                        montant = rv.AmountToPay();
+                        //VeuxTuAlleauMenu();
+
+                    }
+                    aba.Retrait(montant+2);
+                    Console.WriteLine("Nouveau solde du compte cheque : " + aba.GetBalance);
+                    break;
+                case "2":
+                    while (aba.GetBalance < montant + 2 || montant.Equals(10000))
+                    {
+                        CompteClient.PrintMessage("montant insufisant ", false);
+                        montant = 0;
+                        montant = rv.AmountToPay();
+
+                    }
+
+                    aba.RetraitDeCompteEpargne(montant+2);
+                    Console.WriteLine("Nouveau solde du compte epargne : " + aba.GetBalanceEpargne);
+                    break;
+                default:
+                    Console.WriteLine("Operation  invalide");
+                    break;
+            }
+            Console.WriteLine();
+
+        }
+        public void PayerFacture()
+        {
+            InternalClass utils = new InternalClass();
+            Console.WriteLine("Amazon le nb de facture est #145");
+            Console.WriteLine("Bell le nb de facture est #146");
+            Console.WriteLine("Vidéotron le nb de facture est #147");
+            Console.WriteLine("Veuillez choisir un des fournisseurs par leur nom  ou nb facture:");
+            string choix = Console.ReadLine();
+            switch (choix)
+            {
+                case "Amazon":
+                    Console.WriteLine("Nom de la facture :"+ amazon.Description+ "\t" + "Numero de facture : "+ amazon.ItemNumber );
+                    decimal montantAmazon = utils.AmountToPay();
+                    RetireMontantToPaye(selectedAccount, montantAmazon);
+                    
+                    break;
+                case "Bell":
+                    Console.WriteLine("Nom de la facture :" + bell.Description + "\t" + "Numero de facture : " + bell.ItemNumber);
+                    decimal montantBell = utils.AmountToPay();
+                    RetireMontantToPaye(selectedAccount, montantBell);
+
+                    break;
+                case "Vidéotron":
+                    Console.WriteLine("Nom de la facture :" + videotron.Description + "\t" + "Numero de facture : " + videotron.ItemNumber);
+                    decimal montantVideotron = utils.AmountToPay();
+                    RetireMontantToPaye(selectedAccount, montantVideotron);
+                    break;
+                   
+                case "145":
+                    Console.WriteLine("Nom de la facture :" + amazon.Description + "\t" + "Numero de facture : " + amazon.ItemNumber);
+                    decimal facturAmazon = utils.AmountToPay();
+                    RetireMontantToPaye(selectedAccount, facturAmazon);
+
+                    break;
+                case "146":
+                    Console.WriteLine("Nom de la facture :" + bell.Description + "\t" + "Numero de facture : " + bell.ItemNumber);
+                    decimal facturBell = utils.AmountToPay();
+                    RetireMontantToPaye(selectedAccount, facturBell);
+
+                    break;
+                case "147":
+                    Console.WriteLine("Nom de la facture :" + videotron.Description + "\t" + "Numero de facture : " + videotron.ItemNumber);
+                    decimal facturVideotron = utils.AmountToPay();
+                    RetireMontantToPaye(selectedAccount, facturVideotron);
+
+                    break;
+                default:
+                    Console.WriteLine("Operation invalide");
+                    break;
+            }
+        }
+        public void MenuChoixAffichageEpargneCheque(CompteClient a)
         {
 
             string options = "";
@@ -287,16 +434,17 @@ namespace Guichet
             Console.WriteLine();
             Console.WriteLine("1- Checking");
             Console.WriteLine("2- Epargne");
+
             Console.WriteLine("Faite votre choix?");
             options = Console.ReadLine();
 
             switch (options)
             {
                 case "1":
-                    AficheBalanceDeCheque();
+                    AficheBalanceCheque(a);
                     break;
                 case "2":
-                    AficheBalanceDeEpargne();
+                    AficheBalanceEpargne(a);
                     break;
                 case "3":
                     ///retur au menu 
@@ -304,75 +452,24 @@ namespace Guichet
                 default:
                     CompteClient.PrintMessage("Operation  invalide", false);
                     break;
-
             }
 
         }
-        public void MenuChoixEpargneChequeDepot(CompteClient a) 
+
+        public void AficheBalanceCheque(CompteClient acount)
         {
-
-            string options = "";
-
-
-                Console.WriteLine("Dans quel compte Vous voulez Depoze ?");
-                Console.WriteLine();
-                Console.WriteLine("1- Checking");
-                Console.WriteLine("2- Epargne");
-                Console.WriteLine("Faite votre choix?");
-                options = Console.ReadLine();
-
-                switch (options)
-                {
-                    case "1":
-                        AficheCompteCheque();
-                        CompteCheque.DepotDansleCompteCheque(a, listeClientsCheque);
-                        break;
-                    case "2":
-                        AficheCompteEpargne();
-                        CompteEpargne.DepotDansleCompteEpargne(a, listeClientsEpargne);
-                        break;
-                    case "3":
-                        ///retur au menu 
-                        break;
-                    default:
-                        CompteClient.PrintMessage("Operation  invalide", false);
-                        break;
-
-                }
-            
-        }
-        public void MenuChoixEpargneChequeRaitrait(CompteClient a)
-        {
-
-            string options = "";
-
-
-            Console.WriteLine("Dans quel compte Vous voulez Retire ?");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\t" + acount.Nom + "\t" + acount.GetBalance + "$");
             Console.WriteLine();
-            Console.WriteLine("1- Checking");
-            Console.WriteLine("2- Epargne");
-            Console.WriteLine("Faite votre choix?");
-            options = Console.ReadLine();
+            Console.ResetColor();
 
-            switch (options)
-            {
-                case "1":
-                    AficheCompteCheque();
-                    CompteCheque.RaitraitDansleCompteCheque(a, listeClientsCheque);
-                    Console.WriteLine(montatnDuGuichet);
-                    break;
-                case "2":
-                    AficheCompteEpargne();
-                   CompteEpargne.RaitraitDansleCompteEpargne(a, listeClientsEpargne);
-                    break;
-                case "3":
-                    ///retur au menu 
-                    break;
-                default:
-                    CompteClient.PrintMessage("Operation  invalide", false);
-                    break;
-
-            }
+        }
+        public void AficheBalanceEpargne(CompteClient acount)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\t" + acount.Nom + "\t" + acount.GetBalanceEpargne + "$");
+            Console.WriteLine();
+            Console.ResetColor();
 
         }
         public bool IsCompteExiste(string compte)
@@ -407,10 +504,7 @@ namespace Guichet
                 numerocompte = Console.ReadLine();
                 Console.Write("Mot de passe: ");
                 motpasse = Console.ReadLine();
-              // IsCompteExiste(numerocompte);
 
-
-                    //if(IsLoginExist(numerocompte))
                     if (admin.GetNumeroCompte.Equals(numerocompte))
                     {
 
@@ -421,6 +515,7 @@ namespace Guichet
                             //Si le account actuel est Verouilles alors il vous affiche le message que le accoute il est verouille 
                             if (selectedAccount.IsLocked)
                             {
+                                selectedAccount.GetEtatcompote = "NO-ACTIVE";
                                 CompteClient.LockAccount();
 
                             }
@@ -435,11 +530,12 @@ namespace Guichet
                         {
                             goTonext = false;
                             mauvaisEsai++;
-                          // CompteClient.PrintMessage("Données incorrect!", false);
 
                         if (mauvaisEsai >= maxMauvaisEsai)
                             {
+
                                 selectedAccount.IsLocked = true;
+                                selectedAccount.GetEtatcompote = "NO-ACTIVE";
                                 CompteClient.LockAccount();
 
                             }
@@ -474,7 +570,9 @@ namespace Guichet
                         RemettreGuichetFonction();
                         break;
                     case "2":
-                        RemplirGuichet(10);
+                        InternalClass rv = new InternalClass();
+                        decimal montant = rv.AmountToDeposit();
+                        RemplirGuichet(montant);
                         break;
                     case "3":
                         VoirSoldeGuichet();
@@ -491,17 +589,63 @@ namespace Guichet
 
 
         }
+       /* public void   RemplirGuichet()
+        {
+            decimal soldeTemp =0;
+            InternalClass rv = new InternalClass();
+            decimal montant = rv.AmountToDeposit();
+
+
+            soldeTemp = montatnDuGuichet + montant;
+
+            if (soldeTemp > montantMaximum)
+            {
+                Console.WriteLine($"Le montant excède la valeur maximum permis {montantMaximum}.");
+                montant = rv.AmountToDeposit(); 
+            }
+
+            //soldeTemp = montatnDuGuichet + montant;
+            //soldeTemp = montatnDuGuichet + montant;
+            Console.WriteLine(montatnDuGuichet);
+            Console.WriteLine(soldeTemp);
+
+        }*/
         public decimal RemplirGuichet(decimal montant)
         {
             decimal soldeTemp = montatnDuGuichet + montant;
 
             if (soldeTemp > montantMaximum)
             {
-                throw new Exception($"Le montant excède la valeur maximum permis {montantMaximum}.");
-               
+                Console.WriteLine($"Le montant excède la valeur maximum permis {montantMaximum}.");
+
             }
             return AdminDepot(montant);
         }
+        /*public void DeposerMontantGuichet()
+        {
+            Console.WriteLine("Entrer le montant du depot ");
+            string saisie = Console.ReadLine();
+            bool resulatConversion = decimal.TryParse(saisie, out decimal montant);
+            if (resulatConversion && montant <= 10000)
+            {
+                decimal soldeCourant = montatnDuGuichet;
+                montatnDuGuichet=soldeCourant + montant;
+            }
+            else
+            {
+                while (montant > 10000 && resulatConversion)
+                {
+                    Console.WriteLine("Le montant maximal du depot doit etre 10000$");
+                    Console.WriteLine("Entrer le montant du depot ");
+                    saisie = Console.ReadLine();
+                    resulatConversion = decimal.TryParse(saisie, out montant);
+                }
+                decimal soldeCourant = montatnDuGuichet;
+                montatnDuGuichet = soldeCourant + montant;
+            }
+            Console.WriteLine("Transaction effectué avec success");
+            VoirSoldeGuichet();
+        }*/
 
         public void VoirSoldeGuichet()
         {
@@ -511,6 +655,7 @@ namespace Guichet
 
         public decimal AdminDepot(decimal montant)
         {
+
             return montatnDuGuichet = montatnDuGuichet + montant;
         }
         //Affiche les Liste de tout le Comptes 
@@ -520,9 +665,23 @@ namespace Guichet
             foreach (CompteClient account in listeClients)
             {
                 
-                Console.WriteLine($" Nom: {account.Nom}   Numero du Compte: { account.GetNumeroCompte}  Solde du Compte: {account.GetBalance}   Etat du Compte:{account.IsLocked}");
+                Console.WriteLine($"Nom:{ account.Nom}  Compte:{account.GetNumeroCompte}  Solde Cheque :{account.GetBalance} Solde Epargne :{account.GetBalanceEpargne} Etat du Compte: {account.GetEtatcompote}"  );
+                
+            }
+            Console.WriteLine();
+
+
+        }
+        public void AfficherLlisteComptesSansBalance() 
+        {
+            foreach (CompteClient account in listeClients)
+            {
+
+                Console.WriteLine($"Nom:  { account.Nom}   \tNumero du Compte: {account.GetNumeroCompte} \a");
 
             }
+            Console.WriteLine();
+
         }
 
         //Admin peux chosire de alle au menu Principal 
@@ -554,6 +713,24 @@ namespace Guichet
                     break;
             }
             
+
+        }
+        public void VeuxTuAlleauMenu()
+        {
+            Console.WriteLine("Voulez-vous alle au menu principal ou change le montant  (O/N)?");
+            string choix = Console.ReadLine();
+            switch (choix)
+            {
+                case "O":
+                    MenuA(selectedAccount);
+                    break;
+                case "N":
+                    break;
+                default:
+                    CompteClient.PrintMessage("Operation invalide", false); ;
+                    break;
+            }
+
 
         }
 

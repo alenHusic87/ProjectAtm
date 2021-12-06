@@ -4,31 +4,51 @@ using System.Text;
 
 namespace Guichet
 {
-    class Facture
+   public class Facture
     {
-        private decimal factureAmazon;
-        private decimal factureBell;
-        private decimal FactureVideotron;
-
-        private string amazon;
-        private string bell;
-        private string videotron;
-
-
-        public Facture(decimal factureBell ,decimal factureAmazon ,decimal FactureVideotron) 
+        #region Constructors
+        public Facture()
         {
-            this.FactureVideotron = FactureVideotron;
-            this.factureBell = factureBell;
-            this.factureAmazon = factureAmazon;
         }
-        public Facture(string bell ,decimal factureBell , string amazon  ,decimal factureAmazon , string videotron , decimal FactureVideotron) 
-        {
-            this.bell = bell;
-            this.factureBell = factureBell;
-            this.amazon = amazon;
-            this.videotron = videotron;
-            this.FactureVideotron = FactureVideotron;
 
+        public Facture(int itemNumber, string description, decimal unitPrice)
+        {
+            this.ItemNumber = itemNumber;
+            this.Description = description;
+            this.UnitPrice = unitPrice;
+           
         }
+        #endregion
+
+        #region Properties
+        public int ItemNumber
+        {
+            get;
+            set;
+        }
+
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        public decimal UnitPrice
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
+        #region Methods
+
+
+        public override string ToString()
+        {
+            return string.Format( this.Description +this.UnitPrice);
+        }
+        #endregion
     }
 }
+

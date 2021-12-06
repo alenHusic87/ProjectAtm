@@ -7,14 +7,16 @@ namespace Guichet
     class CompteEpargne : CompteClient
     {
         public CompteEpargne() { }
-        public CompteEpargne(string nom, string numero, string pin, decimal balance, bool islocked ): base("Epargne")
+        public CompteEpargne(string nom, string numero, string pin, decimal balance,decimal balanceEpargne, bool islocked ): base("Epargne")
         {
             GetNumeroCompte = numero;
             GetMotPasse = pin;
             GetBalance = balance;
             IsLocked = islocked;
             Nom = nom;
-            
+            GetBalanceEpargne = balanceEpargne;
+
+
         }
         public override void Retrait(decimal montant)
         {
@@ -48,42 +50,16 @@ namespace Guichet
                 this.balance += montant;
             }
         }
-        public static decimal DepotDansleCompteEpargne(CompteClient account, List<CompteEpargne> listeClients)
-        {
-            InternalClass rv = new InternalClass();
-            string utilisateur = rv.EnterUser();
-            account = rv.GetByNumeroCompteEpargne(utilisateur, listeClients);
 
-            while (account == null)
-            {
-                Console.WriteLine("Le Compte ne existe pas ");
-                utilisateur = rv.EnterUser();
-                account = rv.GetByNumeroCompteEpargne(utilisateur, listeClients);
-            }
-
-            decimal montant = rv.AmountToDeposit();
-            while (montant <= 0 || montant.Equals(10000))
-            {
-                Console.WriteLine("Montant invalide ");
-                montant = 0;
-                montant = rv.AmountToDeposit();
-            }
-
-            account.GetBalance += montant;
-
-            Console.WriteLine("Depot dans compte de {0} {1}: ${2} Total:${3}", account.AccountType, utilisateur, montant, account.GetBalance);
-
-            return account.GetBalance;
-        }
         public override decimal DepotDansleCompte(CompteClient account, List<CompteClient> listeClients)
         {
             InternalClass rv = new InternalClass();
-            string utilisateur = rv.EnterUser();
+            string utilisateur = rv.EnterUser("");
             account = rv.GetByNumeroCompte(utilisateur, listeClients);
             while (account == null)
             {
                 Console.WriteLine("Account doesn't exist");
-                utilisateur = rv.EnterUser();
+                utilisateur = rv.EnterUser("");
                 account = rv.GetByNumeroCompte(utilisateur, listeClients);
             }
 
@@ -100,41 +76,35 @@ namespace Guichet
 
             return account.GetBalance;
         }
-        public static decimal RaitraitDansleCompteEpargne(CompteClient account, List<CompteEpargne> listeClients)
+        public override void DepotparDefautDansEpargne(decimal montant)
         {
-            InternalClass rv = new InternalClass();
-            string utilisateur = rv.EnterUser();
-            account = rv.GetByNumeroCompteEpargne(utilisateur, listeClients);
-
-            while (account == null)
+            if (montant < 0)
             {
-                Console.WriteLine("Le Compte ne existe pas ");
-                utilisateur = rv.EnterUser();
-                account = rv.GetByNumeroCompteEpargne(utilisateur, listeClients);
+                Console.WriteLine("Le montant ne peut pas être négatif");
+                return;
             }
-
-            decimal montant = rv.AmountToRetire();
-            while (montant <= 0)
+            else
             {
-                CompteClient.PrintMessage("Le montant ne peut pas être négatif", false); ;
-                montant = 0;
-                montant = rv.AmountToRetire();
+                this.GetBalanceEpargne += montant;
             }
-            if (account.GetBalance <= 0)
+        }
+        public override void RetraitDeCompteEpargne(decimal montant)
+        {
+            // Nancy
+            if (montant < 0)
             {
-                CompteClient.PrintMessage("Le compte est insuffisant", false);
+                Console.WriteLine("Le montant ne peut pas être négatif");
+                return;
             }
-            else if (account.GetBalance >= montant)
+            if (this.GetBalanceEpargne <= 0)
             {
-                account.GetBalance = account.GetBalance - montant;
+                Console.WriteLine("Le compte est insuffisant");
+            }
+            else if (this.GetBalanceEpargne >= montant)
+            {
+                this.GetBalanceEpargne = this.GetBalanceEpargne - montant;
                 Guichet.GetMontatnDuGuichet -= montant;
             }
-
-            //account.GetBalance -= montant;
-
-            Console.WriteLine("Retarait dans compte de {0} {1}: ${2} Total:${3}", account.AccountType, utilisateur, montant, account.GetBalance);
-
-            return account.GetBalance;
         }
         public override void Virement(decimal montant)
         {
@@ -150,7 +120,12 @@ namespace Guichet
         {
             return "Le solde du compte de " + GetNumeroCompte + " est de " + GetBalance + "$";
         }
-        
-   
+        public override void PayerFacture(string Facture, decimal montant)
+        {
+            Retrait(montant + 2);
+            Console.WriteLine("Réglement du facture : {0}", Facture);
+        }
+
+
     }
 }

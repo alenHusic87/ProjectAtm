@@ -10,31 +10,24 @@ namespace Guichet
     {
         protected string numerocompte;
         protected decimal balance;
+        private decimal balanceEpargne;
         protected string nom;
-        protected  string motpasse;   // minimum 4 caractere peut importe le type 
+        protected string motpasse;   // minimum 4 caractere peut importe le type 
         protected bool isLocked;
-        protected string typecompte;
+        private string etatcompote;
 
-        private decimal balancEpargne;
-        private decimal balancCheque;
-        //protected CompteCheque chequ;
-       /// protected static CompteEpargne epargne;
-        public decimal TransferAmount { get; set; }
-   
 
-        public string GetTypeCompte { get => typecompte; set => typecompte = value; }
         public string GetNumeroCompte { get => numerocompte; set => numerocompte = value; }
         public  string GetMotPasse { get => motpasse; set => motpasse = value; }
         public  decimal GetBalance { get => balance; set => balance = value; }
         public bool IsLocked { get => isLocked; set => isLocked = value; }
         public string Nom { get => nom; set => nom = value; }
-        public List<CompteClient> ClientsList { get; private set; }
-       // public CompteCheque GetChequ { get => chequ; set => chequ = value; }
-       // public CompteEpargne GetEpargne { get => epargne; set => epargne = value; }
-        public decimal GetBalancEpargne { get => balancEpargne; set => balancEpargne = value; }
-        public decimal GetBalancCheque { get => balancCheque; set => balancCheque = value; }
+
 
         public string AccountType { get; set; }
+        public decimal GetBalanceEpargne { get => balanceEpargne; set => balanceEpargne = value; }
+        public string GetEtatcompote { get => etatcompote; set => etatcompote = value; }
+
         public CompteClient() {  }
 
         public CompteClient(string numerocompte, string  motpasse, decimal balance)
@@ -47,11 +40,19 @@ namespace Guichet
         {
             this.AccountType = type;
         }
+        public static string EnterUser()
+        {
+            Console.WriteLine("Numero de Compte :");
+            string iban = Console.ReadLine();
 
-        
+            return iban;
+        }
+        public abstract void PayerFacture(string Facture, decimal montant);
         public abstract void Retrait(decimal montant);
+        public abstract void RetraitDeCompteEpargne(decimal montant);
         public abstract string AfficherSolde();
         public abstract void DepotparDefaut(decimal montant);
+        public abstract void DepotparDefautDansEpargne(decimal montant);
         public abstract void Virement(decimal montant);
         public abstract void PayBill(decimal montant);
         public abstract decimal DepotDansleCompte(CompteClient account, List<CompteClient> listeClients);
@@ -70,34 +71,52 @@ namespace Guichet
                 if(montant >= 1000) 
                 {
                     InternalClass intercals = new InternalClass();
+                    
                     CompteClient.PrintMessage($"Neeed Pasword ", false);
-                    intercals.EnterPasword();
+                    int mauvaiscoup = 0;     
+                    string usagerLogin;
+                    string password;
+                    while (mauvaiscoup < 3)
+                    {
+                        usagerLogin = intercals.EnterUser("Destinataire");
+                        password = intercals.EnterPasword();                 
+                        if (celuiquienvoie.GetNumeroCompte.Equals(usagerLogin) && celuiquienvoie.GetMotPasse.Equals(password))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nom utilisateur ou mot de passe incorrecte");
+                            Console.WriteLine();
+                        }
+                        mauvaiscoup++;
+                    }
+                    if (mauvaiscoup.Equals(3))
+                    {
+                        celuiquienvoie.isLocked = true;
+                        CompteClient.LockAccount();
+
+                    }
+                    else
+                    {
+                        celuiquienvoie.Retrait(montant);
+                        destinataire.DepotparDefaut(montant);
+                        CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.Nom  + "\tDe compte " + "\t"+celuiquienvoie.Nom }", true);
+                        CompteClient.PrintMessage($"Le Nouve  solde   du Reciver est de {destinataire.GetBalance + "$" + "\tle nouve sold du Destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
+                    }
+
                 }
                 else 
                 {
                     celuiquienvoie.Retrait(montant);
                     destinataire.DepotparDefaut(montant);
-                    CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.GetNumeroCompte + "    " + " NOm:" + " " + destinataire.Nom }", true);
+                    CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.Nom + "\tDe compte " + "\t" + celuiquienvoie.Nom }", true);
+                    CompteClient.PrintMessage($"Le Nouve  solde   du Reciver est de {destinataire.GetBalance + "$" + "\tle nouve sold du Destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
 
                 }
 
             }
 
-        }
-        public virtual void ShowBalance()
-        {
-            Console.WriteLine("Balance de account {0} {1}: ${2}", this.AccountType, this.GetNumeroCompte, this.GetBalance);
-
-        }
-        public bool isValidPin(string s)
-        {
-            if (s.Length == 0 || s.Length > 4)
-            {
-                return false;
-                Console.WriteLine($"mot de passe devrai etre plus grande que 4   ");
-            }
-     
-            return true;
         }
         public static void LockAccount()
         {
@@ -115,43 +134,46 @@ namespace Guichet
             Console.WriteLine(msg);
             Console.ResetColor();
         }
-        public   void ChangeMotPass() 
+        public void ChangeMotPass()
         {
-            string actuelPin, deuxiemePin;
-            string troisiemePin;
-
-            Console.WriteLine("Enter actuel  mot de passe: ");
-            actuelPin = Console.ReadLine();
-
-         
-
-            if (actuelPin.Equals(GetMotPasse))
+            Console.WriteLine("Entrer le mot de passe actuel:");
+            string actuelMotPasse = Console.ReadLine();
+            Console.WriteLine("Entrer le nouveau mot de passe:");
+            string nouveauMotPasse = Console.ReadLine();
+            Console.WriteLine("Confirmer le nouveau mot de passe :");
+            string confirmation = Console.ReadLine();
+            if (!nouveauMotPasse.Length.Equals(actuelMotPasse.Length))
             {
-
-                Console.WriteLine("Reentre   ton nouve mote passe  : ");
-                deuxiemePin = Console.ReadLine();
-                //isValidPin(deuxiemePin);
-                Console.WriteLine("Confirme ton mot de passe : ");
-                troisiemePin = Console.ReadLine();
-
-                if(troisiemePin.Equals(deuxiemePin)) 
-                {
-                    GetMotPasse = troisiemePin;
-                   
-                }
-                else 
-                {
-                    Console.WriteLine("le  nouve mote passe ne est pa pareille : ");
-                    ChangeMotPass();
-                }
+                Console.WriteLine("Le format du nouveau mot de passe est incorrect");
+            }
+            else if (nouveauMotPasse.Equals(actuelMotPasse))
+            {
+                Console.WriteLine("Le nouveau de mot de passe doit etre different de l'actuel mot de passe");
+            }
+            else if (confirmation.Equals(nouveauMotPasse))
+            {
+                GetMotPasse = nouveauMotPasse;
+                Console.WriteLine("Changement de mot de passe avec succes");
+                Console.WriteLine();
             }
             else
             {
-               
-                Console.WriteLine("Ton mot passe actuel n eats pa celui la que tu as rentre  ");
-                ChangeMotPass();
+                while (!confirmation.Equals(nouveauMotPasse))
+                {
+                    Console.WriteLine("Veuillez confirmer le nouveau Mot de passe ");
+                    confirmation = Console.ReadLine();
+                    if (confirmation.Equals(nouveauMotPasse))
+                    {
+                        Console.WriteLine("Changement de mot de passe effecuté avec success");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Mot de passe confirmation doit etre egale au nouveau mot de passe");
+                    }
+                }
             }
-            
+
         }
+
     }
 }
