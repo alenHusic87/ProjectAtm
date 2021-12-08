@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (2)\\ProjectAtm-AlenHusic\\ProjetGuichet\\Guichet\\Guichet.csproj": {}
+    "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (3)\\ProjectAtm-AlenHusic-v1.0\\ProjetGuichet\\Guichet\\Guichet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (2)\\ProjectAtm-AlenHusic\\ProjetGuichet\\Guichet\\Guichet.csproj": {
+    "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (3)\\ProjectAtm-AlenHusic-v1.0\\ProjetGuichet\\Guichet\\Guichet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (2)\\ProjectAtm-AlenHusic\\ProjetGuichet\\Guichet\\Guichet.csproj",
+        "projectUniqueName": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (3)\\ProjectAtm-AlenHusic-v1.0\\ProjetGuichet\\Guichet\\Guichet.csproj",
         "projectName": "Guichet",
-        "projectPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (2)\\ProjectAtm-AlenHusic\\ProjetGuichet\\Guichet\\Guichet.csproj",
+        "projectPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (3)\\ProjectAtm-AlenHusic-v1.0\\ProjetGuichet\\Guichet\\Guichet.csproj",
         "packagesPath": "C:\\Users\\alenh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (2)\\ProjectAtm-AlenHusic\\ProjetGuichet\\Guichet\\obj\\",
+        "outputPath": "C:\\Users\\alenh\\OneDrive\\Bureau\\New folder (3)\\ProjectAtm-AlenHusic-v1.0\\ProjetGuichet\\Guichet\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -30,7 +30,7 @@ namespace Guichet
 
             if (balance <= 0)
             {
-                Console.WriteLine("Le compte est insuffisant");
+                Console.WriteLine("Le montant du compte est insuffisant");
             }
             else if (balance >= montant)
             {
@@ -58,7 +58,7 @@ namespace Guichet
             account = rv.GetByNumeroCompte(utilisateur, listeClients);
             while (account == null)
             {
-                Console.WriteLine("Account doesn't exist");
+                Console.WriteLine("Le compte n'existe pas");
                 utilisateur = rv.EnterUser("");
                 account = rv.GetByNumeroCompte(utilisateur, listeClients);
             }
@@ -66,7 +66,7 @@ namespace Guichet
             decimal montant = rv.AmountToDeposit();
             while (montant <= 0 || montant.Equals(10000))
             {
-                Console.WriteLine("Amount invalide ");
+                Console.WriteLine("Montant invalide ");
                 montant = 0;
                 montant = rv.AmountToDeposit();
             }
@@ -98,7 +98,7 @@ namespace Guichet
             }
             if (this.GetBalanceEpargne <= 0)
             {
-                Console.WriteLine("Le compte est insuffisant");
+                Console.WriteLine("Le solde du compte est insuffisant");
             }
             else if (this.GetBalanceEpargne >= montant)
             {
@@ -123,7 +123,7 @@ namespace Guichet
         public override void PayerFacture(string Facture, decimal montant)
         {
             Retrait(montant + 2);
-            Console.WriteLine("Réglement du facture : {0}", Facture);
+            Console.WriteLine("Régler la facture : {0}", Facture);
         }
 
 

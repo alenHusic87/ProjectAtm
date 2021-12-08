@@ -60,11 +60,11 @@ namespace Guichet
         {
             if (montant <= 0)
             {
-              CompteClient.PrintMessage("le monta devrai etre plus grande que zero", false);
+              CompteClient.PrintMessage("Le montant devrait être plus grand que zéro", false);
             }
             else if (celuiquienvoie.GetBalance < montant)
             {
-                CompteClient.PrintMessage($"Retrai ne function pas tu nas pas assez de money money ", false);
+                CompteClient.PrintMessage($"Le retrait est impossible, le solde du compte est insufisant ", false);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace Guichet
                         }
                         else
                         {
-                            Console.WriteLine("Nom utilisateur ou mot de passe incorrecte");
+                            Console.WriteLine("Nom d'utilisateur ou mot de passe incorrect");
                             Console.WriteLine();
                         }
                         mauvaiscoup++;
@@ -101,8 +101,8 @@ namespace Guichet
                     {
                         celuiquienvoie.Retrait(montant);
                         destinataire.DepotparDefaut(montant);
-                        CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.Nom  + "\tDe compte " + "\t"+celuiquienvoie.Nom }", true);
-                        CompteClient.PrintMessage($"Le Nouve  solde   du Reciver est de {destinataire.GetBalance + "$" + "\tle nouve sold du Destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
+                        CompteClient.PrintMessage($"tu as bien trensférer   {montant + "$"} a {destinataire.Nom  + "\tde compte " + "\t"+celuiquienvoie.Nom }", true);
+                        CompteClient.PrintMessage($"Le nouveau  solde   du receveur est de {destinataire.GetBalance + "$" + "\tle nouveau solde du destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
                     }
 
                 }
@@ -110,8 +110,8 @@ namespace Guichet
                 {
                     celuiquienvoie.Retrait(montant);
                     destinataire.DepotparDefaut(montant);
-                    CompteClient.PrintMessage($"tu as bine trensfere   {montant + "$"} a {destinataire.Nom + "\tDe compte " + "\t" + celuiquienvoie.Nom }", true);
-                    CompteClient.PrintMessage($"Le Nouve  solde   du Reciver est de {destinataire.GetBalance + "$" + "\tle nouve sold du Destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
+                    CompteClient.PrintMessage($"tu as bien transférer   {montant + "$"} a {destinataire.Nom + "\tde compte " + "\t" + celuiquienvoie.Nom }", true);
+                    CompteClient.PrintMessage($"Le nouveau  solde du receveur est de {destinataire.GetBalance + "$" + "\tle nouveau solde du destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
 
                 }
 
@@ -122,6 +122,19 @@ namespace Guichet
         {
             PrintMessage("Vous avez saisi 3 fois des données incorrect. Le compte est vérouiller.", false);
             Console.WriteLine("Appeller l'admin pour le déverouiller.");
+            //System.Environment.Exit(1);
+        }
+        public static void LockAccountAdmin()
+        {
+            PrintMessage("Vous avez saisi 3 fois des données incorrect. Le compte est vérouiller.", false);
+            
+            //System.Environment.Exit(1);
+        }
+        public static void LockGuichet()
+        {
+            PrintMessage("Guichet  est vérouiller.", false);
+            PrintMessage("Appeller l'admin pour le déverouiller", false);
+
             //System.Environment.Exit(1);
         }
         public static void PrintMessage(string msg, bool success)
@@ -148,23 +161,23 @@ namespace Guichet
             }
             else if (nouveauMotPasse.Equals(actuelMotPasse))
             {
-                Console.WriteLine("Le nouveau de mot de passe doit etre different de l'actuel mot de passe");
+                Console.WriteLine("Le nouveau de mot de passe doit être différent de l'actuel mot de passe");
             }
             else if (confirmation.Equals(nouveauMotPasse))
             {
                 GetMotPasse = nouveauMotPasse;
-                Console.WriteLine("Changement de mot de passe avec succes");
+                Console.WriteLine("Le mot de passe a été changé avec succes");
                 Console.WriteLine();
             }
             else
             {
                 while (!confirmation.Equals(nouveauMotPasse))
                 {
-                    Console.WriteLine("Veuillez confirmer le nouveau Mot de passe ");
+                    Console.WriteLine("Veuillez confirmer le nouveau mot de passe ");
                     confirmation = Console.ReadLine();
                     if (confirmation.Equals(nouveauMotPasse))
                     {
-                        Console.WriteLine("Changement de mot de passe effecuté avec success");
+                        Console.WriteLine("Le mot de passe a été changé avec succès");
                     }
                     else
                     {

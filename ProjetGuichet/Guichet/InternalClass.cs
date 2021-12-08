@@ -9,7 +9,7 @@ namespace Guichet
         
         internal string EnterUser(string discription)
         {
-            Console.WriteLine("Numero de Compte "+ discription);
+            Console.WriteLine("Numéro de Compte "+ discription);
             string user = Console.ReadLine();
 
             return user;
@@ -17,7 +17,7 @@ namespace Guichet
 
         internal string EnterPasword()
         {
-            Console.WriteLine("pasword:");
+            Console.WriteLine("Mot de passe:");
             string pasword = Console.ReadLine();
 
             return pasword;
@@ -29,15 +29,15 @@ namespace Guichet
 
             while (!result || montant<0)
             {
-                Console.WriteLine("Entre Montant a retire ");
+                Console.WriteLine("Entrer le montant à retirer ");
                 result = Decimal.TryParse(Console.ReadLine(), out montant);
                 if (!result)
                 {
-                    Console.WriteLine("Ecrive juste de chifre.");
+                    Console.WriteLine("Entrer seulement des chiffres");
                 }
                 if (montant== 0) 
                 {
-                    Console.WriteLine("montant ne peut pas etre 0.");
+                    Console.WriteLine("Le montant ne peut pas être 0.");
                 }
 
             }
@@ -51,11 +51,11 @@ namespace Guichet
 
             while (!result || montant<0)
             {
-                Console.WriteLine("Entre Montant a depose ");
+                Console.WriteLine("Entrer le montant à deposer ");
                 result = Decimal.TryParse(Console.ReadLine(), out montant);
                 if (!result)
                 {
-                    Console.WriteLine("Ecrive juste de chifre.");
+                    Console.WriteLine("Entrer seulement des chiffres");
                 }
 
             }
@@ -69,11 +69,11 @@ namespace Guichet
 
             while (!result)
             {
-                Console.WriteLine("Entre Montant a Payer ");
+                Console.WriteLine("Entrer le montant à payer ");
                 result = Decimal.TryParse(Console.ReadLine(), out montant);
                 if (!result)
                 {
-                    Console.WriteLine("Ecrive juste de chifre.");
+                    Console.WriteLine("Entrer seulement des chiffres");
                 }
 
             }

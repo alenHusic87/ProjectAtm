@@ -5,12 +5,12 @@ using System.Collections;
 
 namespace Guichet
 {
-    class CompteCheque : CompteClient
+    public class CompteCheque : CompteClient
     {
         static decimal balanceCheque;
 
         static decimal BalanceCheque { get => balanceCheque; set => balanceCheque = value; }
-        public CompteCheque(string nom, string numero, string pin, decimal balance,decimal blanceEpargne ,bool islocked ,string etatcompte) :base("Cheque")
+        public CompteCheque(string nom, string numero, string pin, decimal balance, decimal blanceEpargne, bool islocked, string etatcompte) : base("Cheque")
         {
             GetNumeroCompte = numero;
             GetMotPasse = pin;
@@ -26,10 +26,10 @@ namespace Guichet
             InternalClass rv = new InternalClass();
             string utilisateur = rv.EnterUser("");
             account = rv.GetByNumeroCompte(utilisateur, listeClients);
-           
-            while (account==null)
+
+            while (account == null)
             {
-                Console.WriteLine("Le Compte ne existe pas ");
+                Console.WriteLine("Le compte n'existe pas ");
                 utilisateur = rv.EnterUser("");
                 account = rv.GetByNumeroCompte(utilisateur, listeClients);
             }
@@ -43,45 +43,85 @@ namespace Guichet
             }
 
             account.GetBalance += montant;
-           
-            Console.WriteLine("Depot dans compte de {0} {1}: ${2} Total:${3}", AccountType, utilisateur, montant ,GetBalance);
+
+            Console.WriteLine("Depot dans compte de {0} {1}: ${2} Total:${3}", AccountType, utilisateur, montant, GetBalance);
 
             return account.GetBalance;
         }
         public override void Retrait(decimal montant)
         {
             // Nancy
-            if (montant < 0)
+
+            if (Guichet.GetMontatnDuGuichet >= montant)
             {
-                Console.WriteLine("Le montant ne peut pas être négatif");
-                return;
+                if (montant < 0)
+                {
+                    Console.WriteLine("Le montant ne peut pas être négatif");
+                    return;
+                }
+                if (this.balance <= 0)
+                {
+                    Console.WriteLine("Le compte est insuffisant");
+                }
+                else if (this.balance >= montant)
+                {
+                    this.balance = this.balance - montant;
+                    Guichet.GetMontatnDuGuichet -= montant;
+                }
+                //Console.WriteLine("Pas asse dans Guichet");
             }
-            if (this.balance <= 0)
+            else
             {
-                Console.WriteLine("Le compte est insuffisant");
+                Console.WriteLine("Pas asse dans Guichet");
             }
-            else if (this.balance >= montant)
+            if (Guichet.GetMontatnDuGuichet.Equals(0))
             {
-                this.balance = this.balance - montant;
-                Guichet.GetMontatnDuGuichet -= montant;
+                Console.WriteLine("Panne");
+                Guichet.IsON = false;
+                Guichet.clientCompteChequeAlen.IsLocked = true;
+                Guichet.clientCompteEpargneAlen.IsLocked = true;
+                Guichet.clientCompteChequeNancy.IsLocked = true;
+                Guichet.clientCompteEpargneNancy.IsLocked = true;
+                Guichet.clientCompteChequeJeanSimon.IsLocked = true;
+                Guichet.clientCompteEpargneJeanSimon.IsLocked = true;
+                CompteClient.LockGuichet();
             }
         }
         public override void RetraitDeCompteEpargne(decimal montant)
         {
-            // Nancy
-            if (montant < 0)
+            if (Guichet.GetMontatnDuGuichet >= montant)
             {
-                Console.WriteLine("Le montant ne peut pas être négatif");
-                return;
+                if (montant < 0)
+                {
+                    Console.WriteLine("Le montant ne peut pas être négatif");
+                    return;
+                }
+                if (this.GetBalanceEpargne <= 0)
+                {
+                    Console.WriteLine("Le compte est insuffisant");
+                }
+                else if (this.GetBalanceEpargne >= montant)
+                {
+                    this.GetBalanceEpargne = this.GetBalanceEpargne - montant;
+                    Guichet.GetMontatnDuGuichet -= montant;
+                }
+                //Console.WriteLine("Pas asse dans Guichet");
             }
-            if (this.GetBalanceEpargne <= 0)
+            else
             {
-                Console.WriteLine("Le compte est insuffisant");
+                Console.WriteLine("Pas asse dans Guichet");
             }
-            else if (this.GetBalanceEpargne >= montant)
+            if (Guichet.GetMontatnDuGuichet == 0)
             {
-                this.GetBalanceEpargne = this.GetBalanceEpargne - montant;
-                Guichet.GetMontatnDuGuichet -= montant;
+                Console.WriteLine("Panne");
+                Guichet.IsON = false;
+                Guichet.clientCompteChequeAlen.IsLocked = true;
+                Guichet.clientCompteEpargneAlen.IsLocked = true;
+                Guichet.clientCompteChequeNancy.IsLocked = true;
+                Guichet.clientCompteEpargneNancy.IsLocked = true;
+                Guichet.clientCompteChequeJeanSimon.IsLocked = true;
+                Guichet.clientCompteEpargneJeanSimon.IsLocked = true;
+                CompteClient.LockGuichet();
             }
         }
         public override void DepotparDefaut(decimal montant)
@@ -129,7 +169,7 @@ namespace Guichet
         public override void PayerFacture(string Facture, decimal montant)
         {
             Retrait(montant + 2);
-            Console.WriteLine("Réglement du facture : {0}", Facture);
+            Console.WriteLine("Régler la facture : {0}", Facture);
         }
     }
 
