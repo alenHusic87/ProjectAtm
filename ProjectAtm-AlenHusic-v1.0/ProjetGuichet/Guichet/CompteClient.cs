@@ -78,7 +78,7 @@ namespace Guichet
                     string password;
                     while (mauvaiscoup < 3)
                     {
-                        usagerLogin = intercals.EnterUser("Destinataire");
+                        usagerLogin = intercals.EnterUser("Débiteur");
                         password = intercals.EnterPasword();                 
                         if (celuiquienvoie.GetNumeroCompte.Equals(usagerLogin) && celuiquienvoie.GetMotPasse.Equals(password))
                         {
@@ -102,7 +102,7 @@ namespace Guichet
                         celuiquienvoie.Retrait(montant);
                         destinataire.DepotparDefaut(montant);
                         CompteClient.PrintMessage($"tu as bien trensférer   {montant + "$"} a {destinataire.Nom  + "\tde compte " + "\t"+celuiquienvoie.Nom }", true);
-                        CompteClient.PrintMessage($"Le nouveau  solde   du receveur est de {destinataire.GetBalance + "$" + "\tle nouveau solde du destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
+                        CompteClient.PrintMessage($"Le nouveau  solde   du destinataire est de {destinataire.GetBalance + "$" + "\tle nouveau solde du débiteur est de " + celuiquienvoie.GetBalance + "$" }", true);
                     }
 
                 }
@@ -111,7 +111,7 @@ namespace Guichet
                     celuiquienvoie.Retrait(montant);
                     destinataire.DepotparDefaut(montant);
                     CompteClient.PrintMessage($"tu as bien transférer   {montant + "$"} a {destinataire.Nom + "\tde compte " + "\t" + celuiquienvoie.Nom }", true);
-                    CompteClient.PrintMessage($"Le nouveau  solde du receveur est de {destinataire.GetBalance + "$" + "\tle nouveau solde du destinataire est de " + celuiquienvoie.GetBalance + "$" }", true);
+                    CompteClient.PrintMessage($"Le nouveau  solde du destinataire est de {destinataire.GetBalance + "$" + "\tle nouveau solde du débiteur est de " + celuiquienvoie.GetBalance + "$" }", true);
 
                 }
 
@@ -122,6 +122,19 @@ namespace Guichet
         {
             PrintMessage("Vous avez saisi 3 fois des données incorrect. Le compte est vérouiller.", false);
             Console.WriteLine("Appeller l'admin pour le déverouiller.");
+            //System.Environment.Exit(1);
+        }
+        public static void LockAccountAdmin()
+        {
+            PrintMessage("Vous avez saisi 3 fois des données incorrect. Le compte est vérouiller.", false);
+            
+            //System.Environment.Exit(1);
+        }
+        public static void LockGuichet()
+        {
+            PrintMessage("Le Guichet est vérouiller.", false);
+            PrintMessage("Appeller l'admin pour le déverouiller", false);
+
             //System.Environment.Exit(1);
         }
         public static void PrintMessage(string msg, bool success)
@@ -148,12 +161,12 @@ namespace Guichet
             }
             else if (nouveauMotPasse.Equals(actuelMotPasse))
             {
-                Console.WriteLine("Le nouveau de mot de passe doit être différent de l'actuel mot de passe");
+                Console.WriteLine("Le nouveau mot de passe doit être différent du mot de passe actuel");
             }
             else if (confirmation.Equals(nouveauMotPasse))
             {
                 GetMotPasse = nouveauMotPasse;
-                Console.WriteLine("Le mot de passe a été changé avec succes");
+                Console.WriteLine("Le mot de passe a été changé avec succès");
                 Console.WriteLine();
             }
             else
@@ -168,7 +181,7 @@ namespace Guichet
                     }
                     else
                     {
-                        Console.WriteLine("Mot de passe confirmation doit etre egale au nouveau mot de passe");
+                        Console.WriteLine("Le mot de passe doit être identique à celui saisi");
                     }
                 }
             }
